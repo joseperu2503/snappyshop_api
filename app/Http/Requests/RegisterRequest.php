@@ -23,11 +23,12 @@ class RegisterRequest extends FormRequest
     public function messages()
     {
         return [
-            'name.required' => 'El nombre es obligatorio',
-            'email.required' => 'El Correo electrónico es obligatorio',
-            'email.unique' => 'El correo ingresado ya está registrado',
-            'password.required' => 'La contraseña es obligatoria',
-            'password.confirmed' => 'Confirme su contraseña',
+            'name.required' => 'Name is required.',
+            'email.required' => 'Email is required.',
+            'email.email' => 'Invalid email format.',
+            'email.unique' => 'Email is already registered.',
+            'password.required' => 'Password is required.',
+            'password.confirmed' => 'Please confirm your password.',
         ];
     }
 }

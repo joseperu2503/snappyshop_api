@@ -22,9 +22,9 @@ class LoginRequest extends FormRequest
     public function messages()
     {
         return [
-            'email.required' => 'Ingrese el email',
-            'password.required' => 'Ingrese la contraseña',
-            'email.email' => 'Ingrese un email valido',
+            'email.required' => 'Email is required.',
+            'email.email' => 'Invalid email format.',
+            'password.required' => 'Password is required.',
         ];
     }
 }
