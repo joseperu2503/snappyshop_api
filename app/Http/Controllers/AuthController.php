@@ -79,7 +79,7 @@ class AuthController extends Controller
 
         return [
             'success' => true,
-            'message' => 'Usuario registrado correctamente'
+            'message' => 'User registered successfullye'
         ];
     }
 }
