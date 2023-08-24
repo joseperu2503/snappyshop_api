@@ -25,6 +25,28 @@ class AuthController extends Controller
         return $this->respondWithToken($token);
     }
 
+    public function loginOauth(Request $request)
+    {
+        $user = User::where('email',$request->email)->first();
+
+        if (!$user) {
+            return $this->registerOauth($request);
+        }
+
+        $token = auth()->tokenById($user->id);
+
+        return $this->respondWithToken($token);
+    }
+
+    public function registerOauth(Request $request)
+    {
+        $user = User::create($request->all());
+
+        $token = auth()->tokenById($user->id);
+
+        return $this->respondWithToken($token);
+    }
+
     /**
      * Get the authenticated User.
      *
