@@ -29,7 +29,7 @@ class ProductRequest extends FormRequest
             'stock.required' => 'Stock is required.',
             'price.numeric' => 'Price must be a number.',
             'stock.numeric' => 'Stock must be a number.',
-            'image.numeric' => 'Image is required.',
+            'image.required' => 'Image is required.',
             'image.url' => 'Image must be a url.',
         ];
     }
