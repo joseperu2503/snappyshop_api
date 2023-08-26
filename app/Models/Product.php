@@ -13,6 +13,16 @@ class Product extends Model
         'name',
         'price',
         'stock',
-        'image'
+        'images'
     ];
+
+    public function setImagesAttribute($images)
+    {
+        $this->attributes['images'] = json_encode($images ?? []);
+    }
+
+    public function getImagesAttribute($value)
+    {
+        return json_decode($value, true) ?? [];
+    }
 }
