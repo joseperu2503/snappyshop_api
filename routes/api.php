@@ -31,10 +31,12 @@ Route::middleware('api')->group(function () {
         Route::get('refresh', [AuthController::class,'refresh']);
         Route::get('me', [AuthController::class,'me']);
 
+        Route::get('products/form-data',[ProductController::class,'formData']);
         Route::get('products',[ProductController::class,'index']);
         Route::post('products',[ProductController::class,'store']);
         Route::get('products/{product}',[ProductController::class,'show']);
         Route::put('products/{product}',[ProductController::class,'update']);
         Route::delete('products/{product}',[ProductController::class,'destroy']);
+
     });
 });

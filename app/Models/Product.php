@@ -11,9 +11,15 @@ class Product extends Model
     protected $table = 'products';
     protected $fillable = [
         'name',
+        'description',
         'price',
         'stock',
-        'images'
+        'images',
+        'user_id',
+        'brand_id',
+        'category_id',
+        'colors',
+        'is_public'
     ];
 
     public function setImagesAttribute($images)
@@ -24,5 +30,35 @@ class Product extends Model
     public function getImagesAttribute($value)
     {
         return json_decode($value, true) ?? [];
+    }
+
+    public function setColorsAttribute($colors)
+    {
+        $this->attributes['colors'] = json_encode($colors ?? []);
+    }
+
+    public function getColorsAttribute($value)
+    {
+        return json_decode($value, true) ?? [];
+    }
+
+    public function sizes()
+    {
+        return $this->belongsToMany(Size::class, 'product_sizes', 'product_id', 'size_id');
+    }
+
+    public function genders()
+    {
+        return $this->belongsToMany(Gender::class, 'product_genders', 'product_id', 'gender_id');
+    }
+
+    public function product_sizes()
+    {
+        return $this->hasMany(ProductSize::class);
+    }
+
+    public function product_genders()
+    {
+        return $this->hasMany(ProductGender::class);
     }
 }

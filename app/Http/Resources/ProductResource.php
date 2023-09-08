@@ -19,9 +19,19 @@ class ProductResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
+            'description' => $this->description,
             'price' => $this->price,
             'stock' => $this->stock,
             'images' => $this->images,
+            'brand_id' => $this->brand_id,
+            'category_id' => $this->category_id,
+            'colors' => $this->colors,
+            'sizes' => $this->sizes->map(function ($row) {
+                return $row->id;
+            }),
+            'genders' => $this->genders->map(function ($row) {
+                return $row->id;
+            }),
             'created_at' => $this->created_at->format('d-m-Y'),
         ];
     }
