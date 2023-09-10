@@ -25,6 +25,7 @@ Route::middleware('api')->group(function () {
     Route::post('login-oauth', [AuthController::class,'loginOauth']);
     Route::post('register', [AuthController::class,'register']);
     Route::post('register-oauth', [AuthController::class,'registerOauth']);
+    Route::get('products',[ProductController::class,'index']);
 
     Route::middleware('auth:api')->group(function () {
         Route::get('logout', [AuthController::class,'logout']);
@@ -32,7 +33,6 @@ Route::middleware('api')->group(function () {
         Route::get('me', [AuthController::class,'me']);
 
         Route::get('products/form-data',[ProductController::class,'formData']);
-        Route::get('products',[ProductController::class,'index']);
         Route::post('products',[ProductController::class,'store']);
         Route::get('products/{product}',[ProductController::class,'show']);
         Route::put('products/{product}',[ProductController::class,'update']);
