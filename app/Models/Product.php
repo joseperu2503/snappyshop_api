@@ -19,27 +19,60 @@ class Product extends Model
         'brand_id',
         'category_id',
         'colors',
-        'is_public'
+        'free_shipping'
     ];
 
-    public function setImagesAttribute($images)
+    protected $casts = [
+        'free_shipping' => 'boolean', // Se convierte en un tipo 'tinyint(1)' en la base de datos para insertarlo y se recupera como booleano en consultas (MySQL).
+        'images' => 'array', // Se codifica como JSON para insertarlo en la base de datos y se decodifica al consultar la base de datos. En casos más complejos, se pueden usar mutadores y accesores.
+    ];
+
+    protected static function boot()
     {
-        $this->attributes['images'] = json_encode($images ?? []);
+        parent::boot();
+
+        static::creating(function ($product) {
+            // Establecer el valor predeterminado de 'free_shipping' en false si no se recibe en la solicitud
+            if (!isset($product->free_shipping)) {
+                $product->free_shipping = false;
+            }
+
+            // Establecer el valor predeterminado de 'images' en un array vacío si no se recibe en la solicitud
+            if (!isset($product->images)) {
+                $product->images = [];
+            }
+
+            // Establecer el valor predeterminado de 'colors' en un array vacío si no se recibe en la solicitud
+            if (!isset($product->colors)) {
+                $product->colors = [];
+            }
+        });
     }
 
-    public function getImagesAttribute($value)
-    {
-        return json_decode($value, true) ?? [];
-    }
+    /*
+        Mutators:
 
+        Los mutadores son funciones que permiten modificar el valor de un atributo
+        antes de que se almacene en la base de datos. Estas funciones se utilizan
+         principalmente para realizar transformaciones en los datos antes
+         de su persistencia.
+    */
     public function setColorsAttribute($colors)
     {
-        $this->attributes['colors'] = json_encode($colors ?? []);
+        $this->attributes['colors'] = json_encode($colors);
     }
 
+    /*
+        Accessor:
+
+        Los accesores son funciones que permiten modificar el valor de un
+        atributo antes de que se devuelva al acceder a él en el modelo.
+        Estas funciones se utilizan principalmente para formatear o modificar
+        la representación de datos al recuperarla del modelo.
+    */
     public function getColorsAttribute($value)
     {
-        return json_decode($value, true) ?? [];
+        return json_decode($value, true);
     }
 
     public function sizes()

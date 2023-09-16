@@ -31,9 +31,14 @@ class ProductController extends Controller
         try {
             $user_id = auth()->user()->id;
             $product = Product::create($request->all() + ['user_id' => $user_id]);
-            $this->createProductSizes($product, $request);
-            $this->createProductGenders($product, $request);
 
+            if ($request->sizes) {
+                $this->createProductSizes($product, $request->sizes);
+            }
+
+            if ($request->genders) {
+                $this->createProductGenders($product, $request->genders);
+            }
 
             DB::commit();
             return [
@@ -56,52 +61,81 @@ class ProductController extends Controller
 
     public function update(ProductRequest $request, Product $product)
     {
-        $product->update($request->all());
-        $this->createProductSizes($product, $request);
-        $this->createProductGenders($product, $request);
-        return [
-            'success' => true,
-            'message' => 'Product updated successfully'
-        ];
+        DB::beginTransaction();
+        try {
+
+            $product->update($request->all());
+            if ($request->sizes) {
+                $this->createProductSizes($product, $request->sizes);
+            }
+
+            if ($request->genders) {
+                $this->createProductGenders($product, $request->genders);
+            }
+
+            DB::commit();
+            return [
+                'success' => true,
+                'message' => 'Product updated successfully'
+            ];
+        } catch (Throwable $e) {
+            DB::rollBack();
+
+            return response()->json([
+                'message' => $e->getMessage()
+            ], 500);
+        }
     }
 
     public function destroy(Product $product)
     {
-        foreach ($product->product_genders as $product_gender) {
-            $product_gender->delete();
+        DB::beginTransaction();
+        try {
+            foreach ($product->product_genders as $product_gender) {
+                $product_gender->delete();
+            }
+            foreach ($product->product_sizes as $product_size) {
+                $product_size->delete();
+            }
+            $product->delete();
+
+            DB::commit();
+
+            return [
+                'success' => true,
+                'message' => 'Product deleted successfully'
+            ];
+        } catch (Throwable $e) {
+            DB::rollBack();
+
+            return response()->json([
+                'message' => $e->getMessage()
+            ], 500);
         }
-        foreach ($product->product_sizes as $product_size) {
-            $product_size->delete();
-        }
-        $product->delete();
-        return [
-            'success' => true,
-            'message' => 'Product deleted successfully'
-        ];
     }
 
-    public function createProductSizes($product, $request)
+    public function createProductSizes($product, $sizes)
     {
         foreach ($product->product_sizes as $product_size) {
-            if (!in_array($product_size->size_id, $request->sizes)) {
+            if (!in_array($product_size->size_id, $sizes)) {
                 $product_size->delete();
             }
         }
 
-        foreach ($request->sizes as $size) {
+        foreach ($sizes as $size) {
             ProductSize::updateOrCreate(['product_id' => $product->id, 'size_id' => $size]);
         }
     }
 
-    public function createProductGenders($product, $request)
+    public function createProductGenders($product, $genders)
     {
         foreach ($product->product_genders as $product_gender) {
-            if (!in_array($product_gender->gender_id, $request->genders)) {
+            if (!in_array($product_gender->gender_id, $genders)) {
                 $product_gender->delete();
             }
         }
 
-        foreach ($request->genders as $gender) {
+        foreach ($genders as $gender) {
             ProductGender::updateOrCreate(['product_id' => $product->id, 'gender_id' => $gender]);
         }
     }

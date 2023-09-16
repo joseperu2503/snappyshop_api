@@ -13,16 +13,16 @@ return new class extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->text('name');
             $table->text('description');
             $table->float('price');
             $table->integer('stock');
-            $table->json('images')->nullable();
+            $table->json('images');
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('brand_id')->nullable();
             $table->unsignedBigInteger('category_id')->nullable();
-            $table->json('colors')->nullable();
-            $table->boolean('is_public')->default(true);
+            $table->json('colors');
+            $table->boolean('free_shipping')->default(false);
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users');

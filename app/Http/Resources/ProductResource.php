@@ -32,6 +32,7 @@ class ProductResource extends JsonResource
             'genders' => $this->genders->map(function ($row) {
                 return $row->id;
             }),
+            'free_shipping' => $this->free_shipping,
             'created_at' => $this->created_at->format('d-m-Y'),
         ];
     }

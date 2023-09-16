@@ -21,22 +21,23 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::middleware('api')->group(function () {
-    Route::post('login', [AuthController::class,'login']);
-    Route::post('login-oauth', [AuthController::class,'loginOauth']);
-    Route::post('register', [AuthController::class,'register']);
-    Route::post('register-oauth', [AuthController::class,'registerOauth']);
-    Route::get('products',[ProductController::class,'index']);
+    Route::post('login', [AuthController::class, 'login']);
+    Route::post('login-oauth', [AuthController::class, 'loginOauth']);
+    Route::post('register', [AuthController::class, 'register']);
+    Route::post('register-oauth', [AuthController::class, 'registerOauth']);
 
     Route::middleware('auth:api')->group(function () {
-        Route::get('logout', [AuthController::class,'logout']);
-        Route::get('refresh', [AuthController::class,'refresh']);
-        Route::get('me', [AuthController::class,'me']);
+        Route::get('logout', [AuthController::class, 'logout']);
+        Route::get('refresh', [AuthController::class, 'refresh']);
+        Route::get('me', [AuthController::class, 'me']);
 
-        Route::get('products/form-data',[ProductController::class,'formData']);
-        Route::post('products',[ProductController::class,'store']);
-        Route::get('products/{product}',[ProductController::class,'show']);
-        Route::put('products/{product}',[ProductController::class,'update']);
-        Route::delete('products/{product}',[ProductController::class,'destroy']);
-
+        Route::controller(ProductController::class)->group(function () {
+            Route::get('products', 'index');
+            Route::get('products/form-data', 'formData');
+            Route::post('products', 'store');
+            Route::get('products/{product}', 'show');
+            Route::put('products/{product}', 'update');
+            Route::delete('products/{product}', 'destroy');
+        });
     });
 });
