@@ -21,7 +21,14 @@ class ProductController extends Controller
 
     public function index()
     {
-        $products = Product::all();
+        $products = Product::orderBy('id', 'desc')->paginate(10);
+        return new ProductCollection($products);
+    }
+
+    public function myProducts()
+    {
+        $user_id = auth()->user()->id;
+        $products = Product::where('user_id', $user_id)->orderBy('id', 'desc')->paginate(10);
         return new ProductCollection($products);
     }
 
@@ -56,11 +63,28 @@ class ProductController extends Controller
 
     public function show(Product $product)
     {
+        $user_id = auth()->user()->id;
+
+        if ($product->user_id != $user_id) {
+            return response()->json([
+                'success' => false,
+                'message' => "You don't have permission to view this product"
+            ], 200);
+        }
+
         return new ProductResource($product);
     }
 
     public function update(ProductRequest $request, Product $product)
     {
+        $user_id = auth()->user()->id;
+
+        if ($product->user_id != $user_id) {
+            return response()->json([
+                'success' => false,
+                'message' => "You don't have permission to update this product"
+            ], 200);
+        }
         DB::beginTransaction();
         try {
 
@@ -74,10 +98,10 @@ class ProductController extends Controller
             }
 
             DB::commit();
-            return [
+            return response()->json([
                 'success' => true,
                 'message' => 'Product updated successfully'
-            ];
+            ], 200);
         } catch (Throwable $e) {
             DB::rollBack();
 
@@ -89,6 +113,15 @@ class ProductController extends Controller
 
     public function destroy(Product $product)
     {
+        $user_id = auth()->user()->id;
+
+        if ($product->user_id != $user_id) {
+            return response()->json([
+                'success' => false,
+                'message' => "You don't have permission to delete this product"
+            ], 200);
+        }
+
         DB::beginTransaction();
         try {
             foreach ($product->product_genders as $product_gender) {
@@ -144,13 +177,13 @@ class ProductController extends Controller
     {
         $genders = Gender::all();
         $brands = Brand::all();
-        $category = Category::all();
+        $categories = Category::all();
         $sizes = Size::all();
 
         return [
             'genders' => $genders,
             'brands' => $brands,
-            'category' => $category,
+            'categories' => $categories,
             'sizes' => $sizes,
         ];
     }

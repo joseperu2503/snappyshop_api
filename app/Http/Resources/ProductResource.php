@@ -23,16 +23,33 @@ class ProductResource extends JsonResource
             'price' => $this->price,
             'stock' => $this->stock,
             'images' => $this->images,
-            'brand_id' => $this->brand_id,
-            'category_id' => $this->category_id,
+            'brand' => $this->brand ? [
+                'id' => $this->brand->id,
+                'name' => $this->brand->name,
+            ] : null,
+            'category' => $this->category ? [
+                'id' => $this->category->id,
+                'name' => $this->category->name,
+            ] : null,
             'colors' => $this->colors,
-            'sizes' => $this->sizes->map(function ($row) {
-                return $row->id;
+            'sizes' => $this->sizes->map(function ($size) {
+                return [
+                    'id' => $size->id,
+                    'name' => $size->name,
+                ];
             }),
-            'genders' => $this->genders->map(function ($row) {
-                return $row->id;
+            'genders' => $this->genders->map(function ($gender) {
+                return [
+                    'id' => $gender->id,
+                    'name' => $gender->name,
+                ];
             }),
             'free_shipping' => $this->free_shipping,
+            'user' => [
+                'id' => $this->user->id,
+                'name' => $this->user->name,
+                'name' => $this->user->email,
+            ],
             'created_at' => $this->created_at->format('d-m-Y'),
         ];
     }
