@@ -19,9 +19,27 @@ use Throwable;
 class ProductController extends Controller
 {
 
-    public function index()
+    public function index(Request $request)
     {
-        $products = Product::orderBy('id', 'desc')->paginate(10);
+        $products = Product::orderBy('id', 'desc');
+
+        if ($request->min_price) {
+            $products = $products->where('price', '>=', $request->min_price);
+        }
+        if ($request->max_price) {
+            $products = $products->where('price', '<=', $request->max_price);
+        }
+        if ($request->search) {
+            $products = $products->whereRaw('LOWER(name) LIKE ?', ["%" . strtolower($request->search) . "%"]);
+        }
+        if ($request->brand_id) {
+            $products = $products->where('brand_id', $request->brand_id);
+        }
+        if ($request->category_id) {
+            $products = $products->where('category_id', $request->category_id);
+        }
+        $products = $products->paginate(10);
+
         return new ProductCollection($products);
     }
 
