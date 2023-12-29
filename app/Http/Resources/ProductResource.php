@@ -50,6 +50,7 @@ class ProductResource extends JsonResource
                 'name' => $this->user->name,
                 'name' => $this->user->email,
             ],
+            'discount' => $this->discount,
             'created_at' => $this->created_at,
         ];
     }

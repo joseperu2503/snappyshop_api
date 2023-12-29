@@ -19,7 +19,8 @@ class Product extends Model
         'brand_id',
         'category_id',
         'colors',
-        'free_shipping'
+        'free_shipping',
+        'discount',
     ];
 
     protected $casts = [
