@@ -26,11 +26,6 @@ Route::middleware('api')->group(function () {
     Route::post('login', [AuthController::class, 'login']);
     Route::post('register', [AuthController::class, 'register']);
 
-    Route::controller(ProductController::class)->group(function () {
-        Route::get('products', 'index');
-        Route::get('products/{product}', 'show');
-    });
-
     Route::controller(CategoryController::class)->group(function () {
         Route::get('categories', 'index');
     });
@@ -51,5 +46,10 @@ Route::middleware('api')->group(function () {
             Route::put('products/{product}', 'update');
             Route::delete('products/{product}', 'destroy');
         });
+    });
+
+    Route::controller(ProductController::class)->group(function () {
+        Route::get('products', 'index');
+        Route::get('products/{product}', 'show');
     });
 });

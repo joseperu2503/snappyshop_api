@@ -81,15 +81,6 @@ class ProductController extends Controller
 
     public function show(Product $product)
     {
-        $user_id = auth()->user()->id;
-
-        if ($product->user_id != $user_id) {
-            return response()->json([
-                'success' => false,
-                'message' => "You don't have permission to view this product"
-            ], 200);
-        }
-
         return new ProductResource($product);
     }
 

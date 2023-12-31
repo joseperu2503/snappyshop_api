@@ -30,7 +30,7 @@ class ProductRequest extends FormRequest
             'genders' => 'array',
             'genders.*' => 'exists:genders,id',
             'free_shipping' => 'boolean',
-            'discount' => 'numeric|integer|max:100|min:0',
+            'discount' => 'numeric|integer|max:100|min:0|nullable',
         ];
     }
 
