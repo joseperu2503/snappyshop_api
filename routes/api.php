@@ -2,7 +2,9 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BrandController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -45,6 +47,17 @@ Route::middleware('api')->group(function () {
             Route::post('products', 'store');
             Route::put('products/{product}', 'update');
             Route::delete('products/{product}', 'destroy');
+        });
+
+        Route::controller(OrderController::class)->group(function () {
+            Route::get('my-orders', 'myOrders');
+            Route::post('orders', 'store');
+        });
+
+        Route::controller(CartController::class)->group(function () {
+            Route::post('cart', 'store');
+            Route::get('my-cart', 'myCart');
+
         });
     });
 

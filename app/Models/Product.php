@@ -79,12 +79,12 @@ class Product extends Model
 
     public function sizes()
     {
-        return $this->belongsToMany(Size::class, 'product_sizes', 'product_id', 'size_id');
+        return $this->belongsToMany(Size::class, 'product_size', 'product_id', 'size_id');
     }
 
     public function genders()
     {
-        return $this->belongsToMany(Gender::class, 'product_genders', 'product_id', 'gender_id');
+        return $this->belongsToMany(Gender::class, 'product_gender', 'product_id', 'gender_id');
     }
 
     public function product_sizes()
@@ -110,5 +110,10 @@ class Product extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function orders()
+    {
+        return $this->belongsToMany(Order::class, 'product_order', 'product_id', 'order_id');
     }
 }

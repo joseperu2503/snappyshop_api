@@ -67,4 +67,9 @@ class User extends Authenticatable implements JWTSubject
             'email' => $this->email
         ];
     }
+
+    public function product_carts()
+    {
+        return $this->hasMany(ProductCart::class);
+    }
 }
