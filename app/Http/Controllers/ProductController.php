@@ -18,19 +18,19 @@ use Throwable;
 
 class ProductController extends Controller
 {
-
     public function index(Request $request)
     {
-        $products = Product::orderBy('id', 'desc');
+        if ($request->search && $request->search != '') {
+            $products = Product::search($request->search)->orderBy('id', 'desc');
+        } else {
+            $products = Product::orderBy('id', 'desc');
+        }
 
         if ($request->min_price) {
             $products = $products->where('price', '>=', $request->min_price);
         }
         if ($request->max_price) {
             $products = $products->where('price', '<=', $request->max_price);
-        }
-        if ($request->search) {
-            $products = $products->whereRaw('LOWER(name) LIKE ?', ["%" . strtolower($request->search) . "%"]);
         }
         if ($request->brand_id) {
             $products = $products->where('brand_id', $request->brand_id);
