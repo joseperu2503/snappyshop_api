@@ -54,6 +54,20 @@ class CartController extends Controller
     {
         $user_id = auth()->user()->id;
         $product_carts = ProductCart::where('user_id', $user_id)->orderBy('id', 'desc')->get();
-        return new CartCollection($product_carts);
+
+        $totalAmount = 0;
+        foreach ($product_carts as $productCart) {
+            $price = $productCart->product->price;
+            if ($productCart->product->discount) {
+                $price * (1 - $productCart->product->discount / 100);
+            }
+
+            $totalAmount += $price * $productCart->quantity;
+        }
+
+        return [
+            'total_amount' => $totalAmount,
+            'products' => new CartCollection($product_carts),
+        ];
     }
 }
