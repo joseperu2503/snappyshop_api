@@ -6,6 +6,7 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -44,6 +45,7 @@ Route::middleware('api')->group(function () {
         Route::controller(ProductController::class)->group(function () {
             Route::get('my-products', 'myProducts');
             Route::get('products/form-data', 'formData');
+            Route::get('products/filter-data', 'filterData');
             Route::post('products', 'store');
             Route::put('products/{product}', 'update');
             Route::delete('products/{product}', 'destroy');
@@ -57,7 +59,11 @@ Route::middleware('api')->group(function () {
         Route::controller(CartController::class)->group(function () {
             Route::post('cart', 'store');
             Route::get('my-cart', 'myCart');
+        });
 
+        Route::controller(UserController::class)->group(function () {
+            Route::post('change-password', 'changePassword');
+            Route::post('change-personal-data', 'changePersonalData');
         });
     });
 

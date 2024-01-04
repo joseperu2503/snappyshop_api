@@ -196,4 +196,19 @@ class ProductController extends Controller
             'sizes' => $sizes,
         ];
     }
+
+    public function filterData()
+    {
+        $genders = Gender::select('id', 'name')->get();
+        $brands = Brand::select('id', 'name')->get();
+        $categories = Category::select('id', 'name')->get();
+        $sizes = Size::select('id', 'name')->get();
+
+        return [
+            'genders' => array_merge([['id' => null, 'name' => 'All genders']], $genders->toArray()),
+            'brands' => array_merge([['id' => null, 'name' => 'All brands']], $brands->toArray()),
+            'categories' => array_merge([['id' => null, 'name' => 'All categories']], $categories->toArray()),
+            'sizes' => array_merge([['id' => null, 'name' => 'All sizes']], $sizes->toArray()),
+        ];
+    }
 }

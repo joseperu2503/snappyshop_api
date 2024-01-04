@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class RegisterRequest extends FormRequest
+class ChangePersonalDataRequest extends FormRequest
 {
     public function authorize()
     {
@@ -14,9 +14,9 @@ class RegisterRequest extends FormRequest
     public function rules()
     {
         return [
-            'email' => 'required|unique:users|email',
-            'password' => 'required|string|confirmed',
-            'name' => 'required',
+            'id' => 'required|exists:users,id',
+            'email' => 'required|email|unique:users,email,' . $this->id,
+            'name' => 'required|string',
         ];
     }
 
@@ -27,8 +27,6 @@ class RegisterRequest extends FormRequest
             'email.required' => 'Email is required.',
             'email.email' => 'Invalid email format.',
             'email.unique' => 'Email is already registered.',
-            'password.required' => 'Password is required.',
-            'password.confirmed' => 'Please confirm your password.',
         ];
     }
 }
