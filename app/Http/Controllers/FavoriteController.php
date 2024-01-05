@@ -18,11 +18,6 @@ class FavoriteController extends Controller
         try {
 
             $user = auth()->user();
-            foreach ($user->product_carts as $product_cart) {
-                if (!in_array($product_cart->product_id, array_column($request->products, 'id'))) {
-                    $product_cart->delete();
-                }
-            }
 
             $product_id = $request->product_id;
             $favorite = Favorite::where('user_id', $user->id)->where('product_id', $product_id)->first();
@@ -79,10 +74,12 @@ class FavoriteController extends Controller
     {
         $user = auth()->user();
 
-        $products = Product::rightJoin('favorites', function ($join) use ($user) {
+        $products = Product::select('products.*')->join('favorites', function ($join) use ($user) {
             $join->on('favorites.product_id', '=', 'products.id')
                 ->where('favorites.user_id', $user->id);
-        })->orderBy('products.id', 'desc')->paginate(10);
+        })
+            ->select('products.*', DB::raw('IF(favorites.product_id IS NOT NULL, true, false) as is_favorite'))
+            ->orderBy('products.id', 'desc')->paginate(10);
 
         return new ProductCollection($products);
     }
