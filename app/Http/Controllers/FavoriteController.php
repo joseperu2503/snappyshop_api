@@ -56,13 +56,13 @@ class FavoriteController extends Controller
                     return [
                         'success' => true,
                         'message' => 'The product was removed from favorites.',
-                        'data' => true,
+                        'data' => false,
                     ];
                 } else {
                     return [
                         'success' => true,
                         'message' => 'The product is not in favorites.',
-                        'data' => true,
+                        'data' => false,
                     ];
                 }
             }
