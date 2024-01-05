@@ -52,6 +52,7 @@ class ProductResource extends JsonResource
             ],
             'discount' => $this->discount,
             'created_at' => $this->created_at,
+            'is_favorite' => boolval($this->is_favorite),
         ];
     }
 }

@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
@@ -64,6 +65,12 @@ Route::middleware('api')->group(function () {
         Route::controller(UserController::class)->group(function () {
             Route::post('change-password', 'changePassword');
             Route::post('change-personal-data', 'changePersonalData');
+        });
+
+
+        Route::controller(FavoriteController::class)->group(function () {
+            Route::get('my-favorite-products', 'myFavoriteProducts');
+            Route::post('toggle-favorite-product', 'toggleFavorite');
         });
     });
 

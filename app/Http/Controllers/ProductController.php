@@ -20,10 +20,20 @@ class ProductController extends Controller
 {
     public function index(Request $request)
     {
+        $user = auth()->user();
+
         if ($request->search && $request->search != '') {
             $products = Product::search($request->search)->orderBy('id', 'desc');
         } else {
             $products = Product::orderBy('id', 'desc');
+        }
+
+        if ($user) {
+            $products = $products->leftJoin('favorites', function ($join) use ($user) {
+                $join->on('products.id', '=', 'favorites.product_id')
+                    ->where('favorites.user_id', $user->id);
+            })
+                ->select('products.*', DB::raw('IF(favorites.product_id IS NOT NULL, true, false) as is_favorite'));
         }
 
         if ($request->min_price) {
@@ -38,6 +48,8 @@ class ProductController extends Controller
         if ($request->category_id) {
             $products = $products->where('category_id', $request->category_id);
         }
+
+
         $products = $products->paginate(10);
 
         return new ProductCollection($products);
@@ -45,8 +57,15 @@ class ProductController extends Controller
 
     public function myProducts()
     {
+        $user = auth()->user();
+
         $user_id = auth()->user()->id;
-        $products = Product::where('user_id', $user_id)->orderBy('id', 'desc')->paginate(10);
+        $products = Product::leftjoin('favorites', function ($join) use ($user) {
+            $join->on('products.id', '=', 'favorites.product_id')
+                ->where('favorites.user_id', $user->id);
+        })
+            ->select('products.*', DB::raw('IF(favorites.product_id IS NOT NULL, true, false) as is_favorite'))
+            ->where('products.user_id', $user_id)->orderBy('id', 'desc')->paginate(10);
         return new ProductCollection($products);
     }
 
@@ -81,6 +100,19 @@ class ProductController extends Controller
 
     public function show(Product $product)
     {
+        $user = auth()->user();
+
+        $product = Product::where('products.id', $product->id);
+        if ($user) {
+            $product = $product->leftJoin('favorites', function ($join) use ($user) {
+                $join->on('products.id', '=', 'favorites.product_id')
+                    ->where('favorites.user_id', $user->id);
+            })
+                ->select('products.*', DB::raw('IF(favorites.product_id IS NOT NULL, true, false) as is_favorite'));
+        }
+
+        $product = $product->first();
+
         return new ProductResource($product);
     }
 
