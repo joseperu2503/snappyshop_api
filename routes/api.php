@@ -5,6 +5,7 @@ use App\Http\Controllers\BrandController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\FavoriteController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
@@ -71,6 +72,11 @@ Route::middleware('api')->group(function () {
         Route::controller(FavoriteController::class)->group(function () {
             Route::get('my-favorite-products', 'myFavoriteProducts');
             Route::post('toggle-favorite-product', 'toggleFavorite');
+        });
+
+        Route::controller(NotificationController::class)->group(function () {
+            Route::get('get-firebase-token', 'getFirebaseToken');
+            Route::post('send-notification', 'sendNotification');
         });
     });
 
