@@ -76,7 +76,7 @@ Route::middleware('api')->group(function () {
 
         Route::controller(NotificationController::class)->group(function () {
             Route::get('get-firebase-token', 'getFirebaseToken');
-            Route::post('send-notification', 'sendNotification');
+            Route::post('send-notification', 'sendNotifications');
         });
     });
 

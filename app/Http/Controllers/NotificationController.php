@@ -14,7 +14,7 @@ class NotificationController extends Controller
         return $response;
     }
 
-    public function sendNotification()
+    public function sendNotifications()
     {
         try {
             $token = $this->getFirebaseToken();
