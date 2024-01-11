@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Product;
+use App\Models\SnappyToken;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Http\Request;
 
@@ -17,7 +19,7 @@ class NotificationController extends Controller
     public function sendNotifications()
     {
         try {
-            $token = $this->getFirebaseToken();
+            $firebase_token = $this->getFirebaseToken();
         } catch (\Throwable $th) {
             return response()->json([
                 'success' => false,
@@ -25,36 +27,61 @@ class NotificationController extends Controller
             ], 500);
         }
 
+        $snappy_tokens =  SnappyToken::all();
+        foreach ($snappy_tokens as $snappy_token) {
+            $this->sendNotification($firebase_token, $snappy_token);
+        }
+
+        return [
+            'success' => true,
+            'message' => 'notifications sended successfully',
+        ];
+    }
+
+    public function sendNotification($firebase_token, SnappyToken $snappy_token)
+    {
         $url = env('FIREBASE_NOTIFICATION_URL');
 
+        $product = Product::inRandomOrder()->first();
         $data = [
             "message" => [
-                "token" => "eeC8PPAMTiK9LiEf4GAF1L:APA91bHE8BIRpE4W9G51wp5dzAhfdPsB1tdZcji6XcFny8USntaeQg4lC9lJEdN5OU4CoMUuFdOKsdc4TyPx8iDDVa8L1OLPb9t6ViNHYLF9sJlJufJm7j7WsYq86wmr607kxQk-NDWk",
+                "token" => $snappy_token->token,
                 "data" => [
                     "type" => "product",
-                    "productId" => "3"
+                    "productId" => strval($product->id)
                 ],
                 "notification" => [
-                    "title" => "FCM Message",
-                    "body" => "This is an FCM notification message!"
+                    "title" => $product->name,
+                    "body" => '$' . $product->price,
                 ],
                 "android" => [
                     "notification" => [
-                        "image" => "https://oechsle.vteximg.com.br/arquivos/ids/6407352-1500-1500/image-7e911399945845ea8d0d2af8a3420e28.jpg"
+                        "image" => !empty($product->images) ? $product->images[0] : null
                     ]
                 ]
             ]
         ];
 
-        $response = Http::withToken($token)->post($url, $data);
+        $response = Http::withToken($firebase_token)->post($url, $data);
 
         if ($response->successful()) {
             $responseData = $response->json();
             return response()->json($responseData);
         } else {
+
+            $errorResponse = $response->json();
+
+            //si el error regresa estos codigos de error es por que el token ya no es valido
+            if (
+                $errorResponse['error']['details'][0]['errorCode'] == 'UNREGISTERED' ||
+                $errorResponse['error']['details'][0]['errorCode'] == 'INVALID_ARGUMENT '
+            ) {
+                $snappy_token->delete();
+            }
+
             return response()->json([
                 'success' => false,
-                'error' => 'An error occurred while connecting to send the notification to Firebase.',
+                'error' => $errorResponse['error'],
             ], $response->status());
         }
     }

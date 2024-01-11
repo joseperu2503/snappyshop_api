@@ -4,10 +4,12 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CommandController;
 use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\SnappyTokenController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -76,7 +78,15 @@ Route::middleware('api')->group(function () {
 
         Route::controller(NotificationController::class)->group(function () {
             Route::get('get-firebase-token', 'getFirebaseToken');
-            Route::post('send-notification', 'sendNotifications');
+            Route::post('send-notifications', 'sendNotifications');
+        });
+
+        Route::controller(SnappyTokenController::class)->group(function () {
+            Route::post('snappytoken', 'store');
+        });
+
+        Route::controller(CommandController::class)->group(function () {
+            Route::get(env('MIGRATION_URL'), 'migration');
         });
     });
 
