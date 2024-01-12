@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ChangePasswordRequest;
 use App\Http\Requests\ChangePersonalDataRequest;
+use App\Http\Requests\ChangeProfilePhotoRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -30,7 +31,8 @@ class UserController extends Controller
         $user = User::find($user_id);
         $user->update([
             'name' => $request->name,
-            'email' => $request->email
+            'email' => $request->email,
+            'profile_photo' => $request->profile_photo,
         ]);
 
         return [

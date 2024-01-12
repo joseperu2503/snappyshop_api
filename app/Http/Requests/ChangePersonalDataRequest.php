@@ -17,6 +17,7 @@ class ChangePersonalDataRequest extends FormRequest
             'id' => 'required|exists:users,id',
             'email' => 'required|email|unique:users,email,' . $this->id,
             'name' => 'required|string',
+            'profile_photo' => 'present|url|nullable',
         ];
     }
 
