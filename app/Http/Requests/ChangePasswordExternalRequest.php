@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ChangePasswordRequest extends FormRequest
+class ChangePasswordExternalRequest extends FormRequest
 {
     public function authorize()
     {
@@ -15,6 +15,9 @@ class ChangePasswordRequest extends FormRequest
     {
         return [
             'password' => 'required|string|confirmed',
+            'email' => 'required|email|exists:users,email',
+            'code' => 'required|string|digits:4',
+            'uuid' => 'required|uuid|exists:verify_codes,uuid',
         ];
     }
 

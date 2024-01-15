@@ -66,7 +66,7 @@ Route::middleware('api')->group(function () {
         });
 
         Route::controller(UserController::class)->group(function () {
-            Route::post('change-password', 'changePassword');
+            Route::post('change-password-internal', 'changePasswordInternal');
             Route::post('change-personal-data', 'changePersonalData');
         });
 
@@ -93,5 +93,11 @@ Route::middleware('api')->group(function () {
     Route::controller(ProductController::class)->group(function () {
         Route::get('products', 'index');
         Route::get('products/{product}', 'show');
+    });
+
+    Route::controller(UserController::class)->group(function () {
+        Route::post('change-password-external', 'changePasswordExternal');
+        Route::post('send-verify-code', 'sendVerifyCode');
+        Route::post('validate-verify-code', 'validateVerifyCode');
     });
 });
