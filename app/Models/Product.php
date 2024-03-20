@@ -22,6 +22,7 @@ class Product extends Model
         'colors',
         'free_shipping',
         'discount',
+        'is_active'
     ];
 
     protected $casts = [

@@ -49,7 +49,6 @@ Route::middleware('api')->group(function () {
         Route::controller(ProductController::class)->group(function () {
             Route::get('my-products', 'myProducts');
             Route::get('products/form-data', 'formData');
-            Route::get('products/filter-data', 'filterData');
             Route::post('products', 'store');
             Route::put('products/{product}', 'update');
             Route::delete('products/{product}', 'destroy');
@@ -92,6 +91,7 @@ Route::middleware('api')->group(function () {
 
     Route::controller(ProductController::class)->group(function () {
         Route::get('products', 'index');
+        Route::get('products/filter-data', 'filterData');
         Route::get('products/{product}', 'show');
     });
 

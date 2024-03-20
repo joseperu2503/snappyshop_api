@@ -50,7 +50,7 @@ class ProductController extends Controller
             $products = $products->where('category_id', $request->category_id);
         }
 
-        $products = $products->paginate(10);
+        $products = $products->where('is_active', true)->paginate(10);
 
         return new ProductCollection($products);
     }
@@ -65,7 +65,9 @@ class ProductController extends Controller
                 ->where('favorites.user_id', $user->id);
         })
             ->select('products.*', DB::raw('IF(favorites.product_id IS NOT NULL, true, false) as is_favorite'))
-            ->where('products.user_id', $user_id)->orderBy('id', 'desc')->paginate(10);
+            ->where('products.user_id', $user_id)
+            ->where('products.is_active', true)
+            ->orderBy('id', 'desc')->paginate(10);
         return new ProductCollection($products);
     }
 
@@ -160,25 +162,22 @@ class ProductController extends Controller
             return response()->json([
                 'success' => false,
                 'message' => "You don't have permission to delete this product"
-            ], 200);
+            ], 401);
         }
 
         DB::beginTransaction();
         try {
-            foreach ($product->product_genders as $product_gender) {
-                $product_gender->delete();
-            }
-            foreach ($product->product_sizes as $product_size) {
-                $product_size->delete();
-            }
-            $product->delete();
+
+            $product->update([
+                'is_active' => false,
+            ]);
 
             DB::commit();
 
-            return [
+            return response()->json([
                 'success' => true,
                 'message' => 'Product deleted successfully'
-            ];
+            ], 200);
         } catch (Throwable $e) {
             DB::rollBack();
 
