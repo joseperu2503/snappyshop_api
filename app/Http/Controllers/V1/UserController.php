@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\V2;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\ChangePasswordExternalRequest;
 use App\Http\Requests\ChangePasswordInternalRequest;
 use App\Http\Requests\ChangePersonalDataRequest;

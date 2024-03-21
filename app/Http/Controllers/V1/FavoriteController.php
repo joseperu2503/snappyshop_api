@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\V2;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\FavoriteRequest;
 use App\Http\Resources\ProductCollection;
 use App\Models\Favorite;

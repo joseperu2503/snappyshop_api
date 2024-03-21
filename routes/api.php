@@ -1,16 +1,17 @@
 <?php
 
-use App\Http\Controllers\AuthController;
-use App\Http\Controllers\BrandController;
-use App\Http\Controllers\CartController;
-use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\CommandController;
-use App\Http\Controllers\FavoriteController;
-use App\Http\Controllers\NotificationController;
-use App\Http\Controllers\OrderController;
-use App\Http\Controllers\ProductController;
-use App\Http\Controllers\SnappyTokenController;
-use App\Http\Controllers\UserController;
+use App\Http\Controllers\V2\AuthController;
+use App\Http\Controllers\V2\BrandController;
+use App\Http\Controllers\V2\CartController;
+use App\Http\Controllers\V2\CategoryController;
+use App\Http\Controllers\V2\CommandController;
+use App\Http\Controllers\V2\FavoriteController;
+use App\Http\Controllers\V2\OrderController;
+use App\Http\Controllers\V2\ProductController;
+use App\Http\Controllers\SnappyShop\NotificationController;
+use App\Http\Controllers\SnappyShop\SnappyShopController;
+use App\Http\Controllers\V2\UserController;
+use App\Http\Controllers\V2\AuthController as V2AuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -80,10 +81,6 @@ Route::middleware('api')->group(function () {
             Route::post('send-notifications', 'sendNotifications');
         });
 
-        Route::controller(SnappyTokenController::class)->group(function () {
-            Route::post('snappytoken', 'store');
-        });
-
         Route::controller(CommandController::class)->group(function () {
             Route::get(env('MIGRATION_URL'), 'migration');
         });
@@ -99,5 +96,16 @@ Route::middleware('api')->group(function () {
         Route::post('change-password-external', 'changePasswordExternal');
         Route::post('send-verify-code', 'sendVerifyCode');
         Route::post('validate-verify-code', 'validateVerifyCode');
+    });
+
+    Route::prefix('snappyshop')->group(function () {
+        Route::post('login-google', [SnappyShopController::class, 'loginGoogle']);
+        Route::middleware('auth:api')->group(function () {
+            Route::post('save-snappy-token', [SnappyShopController::class, 'saveSnappyToken']);
+        });
+    });
+
+    Route::prefix('v2')->group(function () {
+        Route::post('login', [V2AuthController::class, 'login']);
     });
 });

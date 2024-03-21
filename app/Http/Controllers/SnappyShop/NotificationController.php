@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\SnappyShop;
 
+use App\Http\Controllers\Controller;
 use App\Models\Product;
 use App\Models\SnappyToken;
 use Illuminate\Support\Facades\Http;
