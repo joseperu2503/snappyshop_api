@@ -1,16 +1,16 @@
 <?php
 
-use App\Http\Controllers\V2\AuthController;
-use App\Http\Controllers\V2\BrandController;
-use App\Http\Controllers\V2\CartController;
-use App\Http\Controllers\V2\CategoryController;
-use App\Http\Controllers\V2\CommandController;
-use App\Http\Controllers\V2\FavoriteController;
-use App\Http\Controllers\V2\OrderController;
-use App\Http\Controllers\V2\ProductController;
+use App\Http\Controllers\V1\AuthController;
+use App\Http\Controllers\V1\BrandController;
+use App\Http\Controllers\V1\CartController;
+use App\Http\Controllers\V1\CategoryController;
+use App\Http\Controllers\V1\CommandController;
+use App\Http\Controllers\V1\FavoriteController;
+use App\Http\Controllers\V1\OrderController;
+use App\Http\Controllers\V1\ProductController;
 use App\Http\Controllers\SnappyShop\NotificationController;
 use App\Http\Controllers\SnappyShop\SnappyShopController;
-use App\Http\Controllers\V2\UserController;
+use App\Http\Controllers\V1\UserController;
 use App\Http\Controllers\V2\AuthController as V2AuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
