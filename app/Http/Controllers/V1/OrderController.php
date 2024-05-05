@@ -5,6 +5,7 @@ namespace App\Http\Controllers\V1;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\OrderRequest;
 use App\Http\Resources\OrderCollection;
+use App\Http\Resources\OrderResource;
 use App\Models\Order;
 use App\Models\Product;
 use App\Models\ProductOrder;
@@ -48,7 +49,7 @@ class OrderController extends Controller
         }
     }
 
-    public function createProductOrder(Order $order, $products)
+    private function createProductOrder(Order $order, $products)
     {
         foreach ($products as $product) {
             ProductOrder::create([
@@ -66,5 +67,19 @@ class OrderController extends Controller
         $orders = Order::where('user_id', $user_id)->orderBy('id', 'desc')->paginate(10);
 
         return new OrderCollection($orders);
+    }
+
+    public function show(Order $order)
+    {
+        $user_id = auth()->user()->id;
+
+        if ($order->user_id != $user_id) {
+            return response()->json([
+                'success' => false,
+                'message' => "You don't have permission to see this order"
+            ], 401);
+        }
+
+        return new OrderResource($order);
     }
 }

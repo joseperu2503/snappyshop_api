@@ -58,6 +58,7 @@ Route::middleware('api')->group(function () {
         Route::controller(OrderController::class)->group(function () {
             Route::get('my-orders', 'myOrders');
             Route::post('orders', 'store');
+            Route::get('orders/{order}', 'show');
         });
 
         Route::controller(CartController::class)->group(function () {
@@ -107,5 +108,13 @@ Route::middleware('api')->group(function () {
 
     Route::prefix('v2')->group(function () {
         Route::post('login', [V2AuthController::class, 'login']);
+    });
+
+    Route::get('error/{codigo_error}', function (int $codigo_error) {
+
+        return response()->json([
+            'success' => $codigo_error == 200 ? true : false,
+            'message' => $codigo_error == 200 ? 'peticion exitosa' : 'peticion fallida'
+        ], $codigo_error);
     });
 });
