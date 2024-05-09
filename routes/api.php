@@ -6,14 +6,14 @@ use App\Http\Controllers\V1\CartController;
 use App\Http\Controllers\V1\CategoryController;
 use App\Http\Controllers\V1\CommandController;
 use App\Http\Controllers\V1\FavoriteController;
-use App\Http\Controllers\V1\OrderController;
 use App\Http\Controllers\V1\ProductController;
 use App\Http\Controllers\SnappyShop\NotificationController;
 use App\Http\Controllers\SnappyShop\SnappyShopController;
 use App\Http\Controllers\V1\UserController;
-use App\Http\Controllers\V2\AuthController as V2AuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+
+include('v2/api.php');
 
 /*
 |--------------------------------------------------------------------------
@@ -53,12 +53,6 @@ Route::middleware('api')->group(function () {
             Route::post('products', 'store');
             Route::put('products/{product}', 'update');
             Route::delete('products/{product}', 'destroy');
-        });
-
-        Route::controller(OrderController::class)->group(function () {
-            Route::get('my-orders', 'myOrders');
-            Route::post('orders', 'store');
-            Route::get('orders/{order}', 'show');
         });
 
         Route::controller(CartController::class)->group(function () {
@@ -104,10 +98,6 @@ Route::middleware('api')->group(function () {
         Route::middleware('auth:api')->group(function () {
             Route::post('save-snappy-token', [SnappyShopController::class, 'saveSnappyToken']);
         });
-    });
-
-    Route::prefix('v2')->group(function () {
-        Route::post('login', [V2AuthController::class, 'login']);
     });
 
     Route::get('error/{codigo_error}', function (int $codigo_error) {

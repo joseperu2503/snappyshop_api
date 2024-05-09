@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Resources;
+namespace App\Http\Resources\V2;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\ResourceCollection;
@@ -16,9 +16,21 @@ class OrderCollection extends ResourceCollection
      *
      * @return array<int|string, mixed>
      */
-    public function toArray(Request $request)
+    public function toArray($request)
     {
-        return $this->collection;
+        return [
+            'results' => $this->collection,
+            'info' => [
+                'per_page' => $this->perPage(),
+                'current_page' => $this->currentPage(),
+                'last_page' => $this->lastPage()
+            ],
+        ];
+    }
+
+    public function toResponse($request)
+    {
+        return JsonResource::toResponse($request);
     }
 }
 
