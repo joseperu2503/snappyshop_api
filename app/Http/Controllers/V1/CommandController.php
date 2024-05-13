@@ -16,4 +16,13 @@ class CommandController extends Controller
             'message' => 'ok'
         ];
     }
+
+    public function migration_rollback()
+    {
+        Artisan::call('migrate:rollback');
+        return [
+            'success' => true,
+            'message' => 'ok'
+        ];
+    }
 }

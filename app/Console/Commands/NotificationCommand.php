@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands;
 
-use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\SnappyShop\NotificationController;
 use Illuminate\Console\Command;
 
 class NotificationCommand extends Command

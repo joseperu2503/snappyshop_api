@@ -5,6 +5,7 @@ use App\Http\Controllers\V2\AuthController;
 use App\Http\Controllers\V1\CartController;
 use App\Http\Controllers\V1\CategoryController;
 use App\Http\Controllers\V1\FavoriteController;
+use App\Http\Controllers\V2\AddressController;
 use App\Http\Controllers\V2\OrderController;
 use App\Http\Controllers\V2\ProductController;
 use Illuminate\Support\Facades\Route;
@@ -50,6 +51,14 @@ Route::middleware('api')->group(function () {
                 Route::get('my-orders', 'myOrders');
                 Route::post('orders', 'store');
                 Route::get('orders/{order}', 'show');
+            });
+
+            Route::controller(AddressController::class)->group(function () {
+                Route::get('addresses/my-addresses', 'myAddresses');
+                Route::get('addresses/{address}', 'show');
+                Route::post('addresses', 'store');
+                Route::delete('addresses/{address}', 'destroy');
+                Route::delete('addresses/mark-as-primary/{address}', 'markAsPrimary');
             });
         });
 
