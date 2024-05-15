@@ -12,7 +12,7 @@ class Address extends Model
     protected $fillable = [
         'address',
         'detail',
-        'name',
+        'recipient_name',
         'phone',
         'references',
         'is_active',

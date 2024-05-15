@@ -23,6 +23,9 @@ return new class extends Migration
             $table->unsignedBigInteger('category_id')->nullable();
             $table->json('colors');
             $table->boolean('free_shipping')->default(false);
+            $table->boolean('is_active')->default(true);
+            $table->integer('discount')->nullable();
+
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users');

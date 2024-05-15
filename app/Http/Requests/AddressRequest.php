@@ -11,7 +11,7 @@ class AddressRequest extends FormRequest
         return [
             'address' => 'required|string',
             'detail' => 'required|string',
-            'name' => 'required|string',
+            'recipient_name' => 'required|string',
             'phone' => 'required|numeric',
             'references' => 'present',
             'latitude' => 'numeric',

@@ -15,13 +15,13 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->string('address');
-            $table->string('detail');
-            $table->string('name');
+            $table->string('detail')->nullable();
+            $table->string('recipient_name');
             $table->string('phone');
             $table->string('references')->nullable();
             $table->boolean('is_active')->default(true);
-            $table->double('latitude', 24, 20);
-            $table->double('longitude', 24, 20);
+            $table->decimal('latitude', 24, 20);
+            $table->decimal('longitude', 24, 20);
             $table->boolean('primary')->default(false);
             $table->timestamps();
 

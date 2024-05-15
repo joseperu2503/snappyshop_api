@@ -15,8 +15,14 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->float('total_amount');
+            $table->float('shipping_fee');
+            $table->string('card_number');
+            $table->unsignedBigInteger('order_status_id');
+            $table->unsignedBigInteger('address_id');
             $table->timestamps();
 
+            $table->foreign('order_status_id')->references('id')->on('order_statuses');
+            $table->foreign('address_id')->references('id')->on('addresses');
             $table->foreign('user_id')->references('id')->on('users');
         });
     }
