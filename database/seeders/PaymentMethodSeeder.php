@@ -6,7 +6,7 @@ use App\Models\PaymentMethod;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class BrandSeeder extends Seeder
+class PaymentMethodSeeder extends Seeder
 {
     /**
      * Run the database seeds.

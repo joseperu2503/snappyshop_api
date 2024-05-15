@@ -17,6 +17,7 @@ return new class extends Migration
             $table->float('total_amount');
             $table->float('shipping_fee');
             $table->string('card_number');
+            $table->string('card_holder_name');
             $table->unsignedBigInteger('order_status_id');
             $table->unsignedBigInteger('address_id');
             $table->timestamps();

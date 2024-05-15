@@ -23,5 +23,7 @@ class DatabaseSeeder extends Seeder
         $this->call(CategorySeeder::class);
         $this->call(GenderSeeder::class);
         $this->call(SizeSeeder::class);
+        $this->call(OrderStatusSeeder::class);
+        $this->call(PaymentMethodSeeder::class);
     }
 }
