@@ -26,13 +26,23 @@ class AddressController extends Controller
     {
         DB::beginTransaction();
         try {
+            $primary = false;
             $user_id = auth()->user()->id;
-            Address::create($request->all() + ['user_id' => $user_id]);
+            $addresses = Address::where('user_id', $user_id)->where('is_active', true)->get();
+            if ($addresses->count() == 0) {
+                $primary = true;
+            }
+
+            $address =  Address::create($request->all() + [
+                'user_id' => $user_id,
+                'primary' =>  $primary,
+            ]);
 
             DB::commit();
             return [
                 'success' => true,
-                'message' => 'Address registered successfully'
+                'message' => 'Address registered successfully',
+                'data' => new AddressResource($address),
             ];
         } catch (Throwable $e) {
             DB::rollBack();
@@ -91,7 +101,15 @@ class AddressController extends Controller
     public function destroy(Address $address)
     {
         $user_id = auth()->user()->id;
+        if ($address->primary) {
+            $newPrimaryAddress = Address::where('user_id', $user_id)
+                ->where('is_active', true)
+                ->where('id', '!=',  $address->id)
+                ->orderBy('id', 'desc')
+                ->first();
 
+            $this->markAsPrimary($newPrimaryAddress);
+        }
         if ($address->user_id != $user_id) {
             return response()->json([
                 'success' => false,
