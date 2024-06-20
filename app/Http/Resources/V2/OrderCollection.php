@@ -52,6 +52,18 @@ class OrderItem extends JsonResource
                 'name' => $this->user->name,
             ],
             'total_amount' => $this->total_amount,
+            'shipping_fee' => $this->shipping_fee,
+            'card_number' => $this->card_number,
+            'order_status' => [
+                'id' => $this->order_status->id,
+                'name' => $this->order_status->name,
+            ],
+            'address' => new AddressResource($this->address),
+            'payment_method' => [
+                'id' => $this->payment_method->id,
+                'name' => $this->payment_method->name,
+            ],
+            'items' =>  $this->product_orders->sum('quantity'),
             'created_at' => $this->created_at,
         ];
     }

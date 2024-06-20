@@ -29,7 +29,6 @@ class ProductRequest extends FormRequest
             'sizes.*' => 'exists:sizes,id',
             'genders' => 'array',
             'genders.*' => 'exists:genders,id',
-            'free_shipping' => 'boolean',
             'discount' => 'numeric|integer|max:100|min:0|nullable',
         ];
     }
@@ -41,7 +40,6 @@ class ProductRequest extends FormRequest
             'category_id.exists' => 'The category_id field must be a valid category id.',
             'sizes.*.exists' => 'The :attribute field must be a valid size id.',
             'genders.*.exists' => 'The :attribute field must be a valid gender id.',
-            'free_shipping.boolean' => 'The free_shipping field must be true or false.',
         ];
     }
 }

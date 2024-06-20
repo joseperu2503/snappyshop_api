@@ -12,6 +12,12 @@ class Order extends Model
     protected $fillable = [
         'user_id',
         'total_amount',
+        'shipping_fee',
+        'card_number',
+        'card_holder_name',
+        'order_status_id',
+        'address_id',
+        'payment_method_id',
     ];
 
     public function products()
@@ -27,5 +33,20 @@ class Order extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function address()
+    {
+        return $this->belongsTo(Address::class);
+    }
+
+    public function payment_method()
+    {
+        return $this->belongsTo(PaymentMethod::class);
+    }
+
+    public function order_status()
+    {
+        return $this->belongsTo(OrderStatus::class);
     }
 }

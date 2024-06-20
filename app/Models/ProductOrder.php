@@ -14,6 +14,7 @@ class ProductOrder extends Model
         'product_id',
         'price',
         'discount',
+        'quantity',
     ];
 
     public function product()

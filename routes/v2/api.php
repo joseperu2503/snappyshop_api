@@ -4,7 +4,7 @@ use App\Http\Controllers\V1\BrandController;
 use App\Http\Controllers\V2\AuthController;
 use App\Http\Controllers\V1\CartController;
 use App\Http\Controllers\V1\CategoryController;
-use App\Http\Controllers\V1\FavoriteController;
+use App\Http\Controllers\V2\FavoriteController;
 use App\Http\Controllers\V2\AddressController;
 use App\Http\Controllers\V2\OrderController;
 use App\Http\Controllers\V2\ProductController;
@@ -14,7 +14,6 @@ Route::middleware('api')->group(function () {
     Route::prefix('v2')->group(function () {
         Route::post('login', [AuthController::class, 'login']);
         Route::post('register', [AuthController::class, 'register']);
-
 
         Route::controller(CategoryController::class)->group(function () {
             Route::get('categories', 'index');
@@ -30,7 +29,7 @@ Route::middleware('api')->group(function () {
             Route::get('me', [AuthController::class, 'me']);
 
             Route::controller(ProductController::class)->group(function () {
-                Route::get('my-products', 'myProducts');
+                Route::get('products/my-products', 'myProducts');
                 Route::get('products/form-data', 'formData');
                 Route::post('products', 'store');
                 Route::put('products/{product}', 'update');
@@ -48,7 +47,8 @@ Route::middleware('api')->group(function () {
             });
 
             Route::controller(OrderController::class)->group(function () {
-                Route::get('my-orders', 'myOrders');
+                Route::get('orders/order-statuses', 'orderStatuses');
+                Route::get('orders/my-orders', 'myOrders');
                 Route::post('orders', 'store');
                 Route::get('orders/{order}', 'show');
             });

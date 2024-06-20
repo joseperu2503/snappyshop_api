@@ -22,7 +22,6 @@ return new class extends Migration
             $table->unsignedBigInteger('brand_id')->nullable();
             $table->unsignedBigInteger('category_id')->nullable();
             $table->json('colors');
-            $table->boolean('free_shipping')->default(false);
             $table->boolean('is_active')->default(true);
             $table->integer('discount')->nullable();
 

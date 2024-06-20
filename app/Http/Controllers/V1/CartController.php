@@ -60,7 +60,7 @@ class CartController extends Controller
         foreach ($product_carts as $productCart) {
             $price = $productCart->product->price;
             if ($productCart->product->discount) {
-                $price * (1 - $productCart->product->discount / 100);
+                $price = $price * (1 - $productCart->product->discount / 100);
             }
 
             $totalAmount += $price * $productCart->quantity;

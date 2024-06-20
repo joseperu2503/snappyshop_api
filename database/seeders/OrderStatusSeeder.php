@@ -18,8 +18,6 @@ class OrderStatusSeeder extends Seeder
             ['name' => 'Packed'],
             ['name' => 'In Transit'],
             ['name' => 'Delivered'],
-            ['name' => 'Cancelled'],
-            ['name' => 'Rejected'],
         ];
 
         foreach ($rows as $row) {

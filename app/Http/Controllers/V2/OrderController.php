@@ -6,7 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\OrderRequest;
 use App\Http\Resources\V2\OrderCollection;
 use App\Http\Resources\V2\OrderResource;
+use App\Models\Address;
 use App\Models\Order;
+use App\Models\OrderStatus;
 use App\Models\Product;
 use App\Models\ProductOrder;
 use Illuminate\Http\Request;
@@ -20,20 +22,63 @@ class OrderController extends Controller
         DB::beginTransaction();
         try {
 
-            $products = Product::whereIn('id', $request->products)->get();
-            $total_amount = 0;
-            foreach ($products as  $product) {
-                $total_amount = $total_amount + $product->price;
+            $user_id = auth()->user()->id;
+            $address = Address::find($request->address_id);
+            $shipping_fee = 10;
+
+            if ($address->user_id != $user_id) {
+                return response()->json([
+                    'success' => false,
+                    'message' => "The address does not belong to you."
+                ], 401);
             }
 
-            $user_id = auth()->user()->id;
+            $total_amount = 0;
+            foreach ($request->products as $product_request) {
+                $product = Product::find($product_request['id']);
+
+                if (!$product->is_active) {
+                    return response()->json([
+                        'success' => false,
+                        'message' => "One or more products are no longer available"
+                    ], 404);
+                }
+                if (!$product->stock) {
+                    return response()->json([
+                        'success' => false,
+                        'message' => "One or more products are out of stock"
+                    ], 404);
+                }
+
+                $price = $product->price;
+                if ($product->discount) {
+                    $price =  $price * (1 - $product->discount / 100);
+                }
+
+                $total_amount = $total_amount + $price * $product_request['quantity'];
+            }
+
             $order = Order::create([
                 'user_id' => $user_id,
                 'total_amount' => $total_amount,
+                'shipping_fee' => $shipping_fee,
+                'card_number' => $request->card_number,
+                'card_holder_name' => $request->card_holder_name,
+                'order_status_id' => 1,
+                'address_id' => $request->address_id,
+                'payment_method_id' => $request->payment_method_id,
             ]);
 
-            $this->createProductOrder($order, $products);
-
+            foreach ($request->products as $product_request) {
+                $product = Product::find($product_request['id']);
+                ProductOrder::create([
+                    'order_id' => $order->id,
+                    'product_id' => $product->id,
+                    'price' => $product->price,
+                    'discount' => $product->discount,
+                    'quantity' => $product_request['quantity'],
+                ]);
+            }
 
             DB::commit();
             return [
@@ -49,22 +94,15 @@ class OrderController extends Controller
         }
     }
 
-    private function createProductOrder(Order $order, $products)
-    {
-        foreach ($products as $product) {
-            ProductOrder::create([
-                'order_id' => $order->id,
-                'product_id' => $product->id,
-                'price' => $product->price,
-                'discount' => $product->discount,
-            ]);
-        }
-    }
-
-    public function myOrders()
+    public function myOrders(Request $request)
     {
         $user_id = auth()->user()->id;
-        $orders = Order::where('user_id', $user_id)->orderBy('id', 'desc')->paginate(10);
+        $orders = Order::where('user_id', $user_id);
+        if ($request->order_status_id) {
+            $orders = $orders->where('order_status_id', $request->order_status_id);
+        }
+
+        $orders = $orders->orderBy('id', 'desc')->paginate(10);
 
         return new OrderCollection($orders);
     }
@@ -81,5 +119,12 @@ class OrderController extends Controller
         }
 
         return new OrderResource($order);
+    }
+
+    public function orderStatuses()
+    {
+        $order_statuses = OrderStatus::select('id', 'name')->get();
+
+        return $order_statuses;
     }
 }

@@ -20,8 +20,8 @@ return new class extends Migration
             $table->string('phone');
             $table->string('references')->nullable();
             $table->boolean('is_active')->default(true);
-            $table->decimal('latitude', 24, 20);
-            $table->decimal('longitude', 24, 20);
+            $table->double('latitude', 22, 18);
+            $table->double('longitude', 22, 18);
             $table->boolean('primary')->default(false);
             $table->timestamps();
 

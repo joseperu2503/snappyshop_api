@@ -20,13 +20,11 @@ class Product extends Model
         'brand_id',
         'category_id',
         'colors',
-        'free_shipping',
         'discount',
         'is_active'
     ];
 
     protected $casts = [
-        'free_shipping' => 'boolean', // Se convierte en un tipo 'tinyint(1)' en la base de datos para insertarlo y se recupera como booleano en consultas (MySQL).
         'images' => 'array', // Se codifica como JSON para insertarlo en la base de datos y se decodifica al consultar la base de datos. En casos más complejos, se pueden usar mutadores y accesores.
     ];
 
@@ -35,11 +33,6 @@ class Product extends Model
         parent::boot();
 
         static::creating(function ($product) {
-            // Establecer el valor predeterminado de 'free_shipping' en false si no se recibe en la solicitud
-            if (!isset($product->free_shipping)) {
-                $product->free_shipping = false;
-            }
-
             // Establecer el valor predeterminado de 'images' en un array vacío si no se recibe en la solicitud
             if (!isset($product->images)) {
                 $product->images = [];

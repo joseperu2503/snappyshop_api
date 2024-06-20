@@ -5,7 +5,6 @@ use App\Http\Controllers\V1\BrandController;
 use App\Http\Controllers\V1\CartController;
 use App\Http\Controllers\V1\CategoryController;
 use App\Http\Controllers\V1\CommandController;
-use App\Http\Controllers\V1\FavoriteController;
 use App\Http\Controllers\V1\ProductController;
 use App\Http\Controllers\SnappyShop\NotificationController;
 use App\Http\Controllers\SnappyShop\SnappyShopController;
@@ -65,12 +64,6 @@ Route::middleware('api')->group(function () {
             Route::post('change-personal-data', 'changePersonalData');
         });
 
-
-        Route::controller(FavoriteController::class)->group(function () {
-            Route::get('my-favorite-products', 'myFavoriteProducts');
-            Route::post('toggle-favorite-product', 'toggleFavorite');
-        });
-
         Route::controller(NotificationController::class)->group(function () {
             Route::get('get-firebase-token', 'getFirebaseToken');
             Route::post('send-notifications', 'sendNotifications');
@@ -80,7 +73,7 @@ Route::middleware('api')->group(function () {
             Route::get(env('MIGRATION_URL'), 'migration');
         });
         Route::controller(CommandController::class)->group(function () {
-            Route::get(env('MIGRATION_URL').'_rollback', 'migration_rollback');
+            Route::get(env('MIGRATION_URL') . '_rollback', 'migration_rollback');
         });
     });
 

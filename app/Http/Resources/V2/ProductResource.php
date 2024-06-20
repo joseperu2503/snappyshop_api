@@ -44,7 +44,6 @@ class ProductResource extends JsonResource
                     'name' => $gender->name,
                 ];
             }),
-            'free_shipping' => $this->free_shipping,
             'user' => [
                 'id' => $this->user->id,
                 'name' => $this->user->name,
