@@ -14,11 +14,11 @@ class BrandSeeder extends Seeder
     public function run(): void
     {
         $rows = [
-            ['name' => 'Nike'],
             ['name' => 'Adidas'],
-            ['name' => 'Puma'],
-            ['name' => 'Apple'],
-            ['name' => 'Samsung'],
+            // ['name' => 'Nike'],
+            // ['name' => 'Puma'],
+            // ['name' => 'Apple'],
+            // ['name' => 'Samsung'],
         ];
 
         foreach ($rows as $row) {
