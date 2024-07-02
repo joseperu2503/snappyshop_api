@@ -1,12 +1,15 @@
 <?php
 
-namespace App\Http\Controllers\SnappyShop;
+namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\SnappyTokenRequest;
 use App\Models\Product;
 use App\Models\SnappyToken;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Throwable;
 
 class NotificationController extends Controller
 {
@@ -84,6 +87,32 @@ class NotificationController extends Controller
                 'success' => false,
                 'error' => $errorResponse['error'],
             ], $response->status());
+        }
+    }
+
+    public function saveSnappyToken(SnappyTokenRequest $request)
+    {
+        DB::beginTransaction();
+        try {
+            $user_id = auth()->user()->id;
+            SnappyToken::updateOrCreate(
+                [
+                    'token' => $request->token
+                ],
+                ['user_id' => $user_id,]
+            );
+
+            DB::commit();
+            return [
+                'success' => true,
+                'message' => 'Snappy token registered successfully'
+            ];
+        } catch (Throwable $e) {
+            DB::rollBack();
+
+            return response()->json([
+                'message' => $e->getMessage()
+            ], 500);
         }
     }
 }

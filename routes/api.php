@@ -1,18 +1,18 @@
 <?php
 
-use App\Http\Controllers\V1\AuthController;
-use App\Http\Controllers\V1\BrandController;
-use App\Http\Controllers\V1\CartController;
-use App\Http\Controllers\V1\CategoryController;
-use App\Http\Controllers\V1\CommandController;
-use App\Http\Controllers\V1\ProductController;
-use App\Http\Controllers\SnappyShop\NotificationController;
-use App\Http\Controllers\SnappyShop\SnappyShopController;
-use App\Http\Controllers\V1\UserController;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\BrandController;
+use App\Http\Controllers\CartController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CommandController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\AddressController;
+use App\Http\Controllers\FavoriteController;
+use App\Http\Controllers\OrderController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-
-include('v2/api.php');
 
 /*
 |--------------------------------------------------------------------------
@@ -32,6 +32,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::middleware('api')->group(function () {
     Route::post('login', [AuthController::class, 'login']);
     Route::post('register', [AuthController::class, 'register']);
+    Route::post('login-google', [AuthController::class, 'loginGoogle']);
 
     Route::controller(CategoryController::class)->group(function () {
         Route::get('categories', 'index');
@@ -46,17 +47,17 @@ Route::middleware('api')->group(function () {
         Route::get('refresh', [AuthController::class, 'refresh']);
         Route::get('me', [AuthController::class, 'me']);
 
+        Route::controller(CartController::class)->group(function () {
+            Route::post('cart', 'store');
+            Route::get('my-cart', 'myCart');
+        });
+
         Route::controller(ProductController::class)->group(function () {
             Route::get('my-products', 'myProducts');
             Route::get('products/form-data', 'formData');
             Route::post('products', 'store');
             Route::put('products/{product}', 'update');
             Route::delete('products/{product}', 'destroy');
-        });
-
-        Route::controller(CartController::class)->group(function () {
-            Route::post('cart', 'store');
-            Route::get('my-cart', 'myCart');
         });
 
         Route::controller(UserController::class)->group(function () {
@@ -67,6 +68,27 @@ Route::middleware('api')->group(function () {
         Route::controller(NotificationController::class)->group(function () {
             Route::get('get-firebase-token', 'getFirebaseToken');
             Route::post('send-notifications', 'sendNotifications');
+            Route::post('save-snappy-token',  'saveSnappyToken');
+        });
+
+        Route::controller(FavoriteController::class)->group(function () {
+            Route::get('my-favorite-products', 'myFavoriteProducts');
+            Route::post('toggle-favorite-product', 'toggleFavorite');
+        });
+
+        Route::controller(OrderController::class)->group(function () {
+            Route::get('orders/order-statuses', 'orderStatuses');
+            Route::get('orders/my-orders', 'myOrders');
+            Route::post('orders', 'store');
+            Route::get('orders/{order}', 'show');
+        });
+
+        Route::controller(AddressController::class)->group(function () {
+            Route::get('addresses/my-addresses', 'myAddresses');
+            Route::get('addresses/{address}', 'show');
+            Route::post('addresses', 'store');
+            Route::delete('addresses/{address}', 'destroy');
+            Route::delete('addresses/mark-as-primary/{address}', 'markAsPrimary');
         });
 
         Route::controller(CommandController::class)->group(function () {
@@ -87,20 +109,5 @@ Route::middleware('api')->group(function () {
         Route::post('change-password-external', 'changePasswordExternal');
         Route::post('send-verify-code', 'sendVerifyCode');
         Route::post('validate-verify-code', 'validateVerifyCode');
-    });
-
-    Route::prefix('snappyshop')->group(function () {
-        Route::post('login-google', [SnappyShopController::class, 'loginGoogle']);
-        Route::middleware('auth:api')->group(function () {
-            Route::post('save-snappy-token', [SnappyShopController::class, 'saveSnappyToken']);
-        });
-    });
-
-    Route::get('error/{codigo_error}', function (int $codigo_error) {
-
-        return response()->json([
-            'success' => $codigo_error == 200 ? true : false,
-            'message' => $codigo_error == 200 ? 'peticion exitosa' : 'peticion fallida'
-        ], $codigo_error);
     });
 });

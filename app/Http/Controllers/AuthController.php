@@ -1,12 +1,16 @@
 <?php
 
-namespace App\Http\Controllers\V2;
+namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\LoginGoogleRequest;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
 use App\Models\User;
+use Google_Client;
 use Illuminate\Http\Request;
+use Throwable;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 class AuthController extends Controller
 {
@@ -62,5 +66,42 @@ class AuthController extends Controller
             'success' => true,
             'message' => 'User registered successfully'
         ];
+    }
+
+    public function loginGoogle(LoginGoogleRequest $request)
+    {
+        try {
+            $client = new Google_Client(['client_id' => env('GOOGLE_CLIENT_ID_OAUTH')]);  // Specify the CLIENT_ID of the app that accesses the backend
+            $payload = $client->verifyIdToken($request->id_token);
+            if ($payload) {
+                $email = $payload['email'];
+                $user = User::where('email', $email)->first();
+
+                if (!$user) {
+                    return response()->json([
+                        'success' => false,
+                        'message' =>  'Unregistered user',
+                    ], 400);
+                }
+
+                $token = JWTAuth::fromUser($user);
+
+                return response()->json([
+                    'success' => true,
+                    'access_token' => $token,
+                ]);
+            } else {
+                // Invalid ID token
+                return response()->json([
+                    'success' => false,
+                    'message' =>  'Invalid ID token',
+                ], 400);
+            }
+        } catch (Throwable $th) {
+            return response()->json([
+                'success' => false,
+                'message' =>  'Invalid ID token',
+            ], 400);
+        }
     }
 }
