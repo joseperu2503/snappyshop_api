@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\SnappyTokenRequest;
+use App\Http\Requests\DeviceFcmTokenRequest;
+use App\Models\DeviceFcmToken;
 use App\Models\Product;
-use App\Models\SnappyToken;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -31,9 +31,9 @@ class NotificationController extends Controller
             ], 500);
         }
 
-        $snappy_tokens =  SnappyToken::all();
-        foreach ($snappy_tokens as $snappy_token) {
-            $this->sendNotification($firebase_token, $snappy_token);
+        $device_fcm_tokens =  DeviceFcmToken::all();
+        foreach ($device_fcm_tokens as $device_fcm_token) {
+            $this->sendNotification($firebase_token, $device_fcm_token);
         }
 
         return [
@@ -42,14 +42,14 @@ class NotificationController extends Controller
         ];
     }
 
-    public function sendNotification($firebase_token, SnappyToken $snappy_token)
+    public function sendNotification($firebase_token, DeviceFcmToken $device_fcm_token)
     {
         $url = env('FIREBASE_NOTIFICATION_URL');
 
         $product = Product::inRandomOrder()->first();
         $data = [
             "message" => [
-                "token" => $snappy_token->token,
+                "token" => $device_fcm_token->token,
                 "data" => [
                     "type" => "product",
                     "productId" => strval($product->id)
@@ -80,7 +80,7 @@ class NotificationController extends Controller
                 $errorResponse['error']['details'][0]['errorCode'] == 'UNREGISTERED' ||
                 $errorResponse['error']['details'][0]['errorCode'] == 'INVALID_ARGUMENT '
             ) {
-                $snappy_token->delete();
+                $device_fcm_token->delete();
             }
 
             return response()->json([
@@ -90,12 +90,12 @@ class NotificationController extends Controller
         }
     }
 
-    public function saveSnappyToken(SnappyTokenRequest $request)
+    public function saveDeviceFcmToken(DeviceFcmTokenRequest $request)
     {
         DB::beginTransaction();
         try {
             $user_id = auth()->user()->id;
-            SnappyToken::updateOrCreate(
+            DeviceFcmToken::updateOrCreate(
                 [
                     'token' => $request->token
                 ],
@@ -105,7 +105,7 @@ class NotificationController extends Controller
             DB::commit();
             return [
                 'success' => true,
-                'message' => 'Snappy token registered successfully'
+                'message' => 'Device FCM token registered successfully'
             ];
         } catch (Throwable $e) {
             DB::rollBack();

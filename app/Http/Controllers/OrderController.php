@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\OrderRequest;
-use App\Http\Resources\V2\OrderCollection;
-use App\Http\Resources\V2\OrderResource;
+use App\Http\Resources\OrderCollection;
+use App\Http\Resources\OrderResource;
 use App\Models\Address;
 use App\Models\Order;
 use App\Models\OrderStatus;

@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\FavoriteRequest;
-use App\Http\Resources\V2\ProductCollection;
+use App\Http\Resources\ProductCollection;
 use App\Models\Favorite;
 use App\Models\Product;
 use Illuminate\Http\Request;
@@ -82,6 +82,6 @@ class FavoriteController extends Controller
             ->select('products.*', DB::raw('IF(favorites.product_id IS NOT NULL, true, false) as is_favorite'))
             ->orderBy('products.id', 'desc')->paginate(10);
 
-        return new ProductCollection($products);
+        return $this->paginateMapper(new ProductCollection($products));
     }
 }

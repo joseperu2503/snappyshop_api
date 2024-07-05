@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AddressRequest;
-use App\Http\Resources\V2\AddressCollection;
-use App\Http\Resources\V2\AddressResource;
+use App\Http\Resources\AddressCollection;
+use App\Http\Resources\AddressResource;
 use App\Models\Address;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -16,10 +16,11 @@ class AddressController extends Controller
     public function myAddresses()
     {
         $user_id = auth()->user()->id;
-        $addresses = Address::where('user_id', $user_id)->orderBy('primary', 'desc')->orderBy('id', 'desc')
+        $addresses = Address::where('user_id', $user_id)
+            ->orderBy('primary', 'desc')->orderBy('id', 'desc')
             ->where('is_active', true)->paginate(10);
 
-        return new AddressCollection($addresses);
+        return $this->paginateMapper(new AddressCollection($addresses));
     }
 
     public function store(AddressRequest $request)

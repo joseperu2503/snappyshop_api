@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ProductRequest;
-use App\Http\Resources\V2\ProductCollection;
-use App\Http\Resources\V2\ProductResource;
+use App\Http\Resources\ProductCollection;
+use App\Http\Resources\ProductResource;
 use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Gender;
@@ -53,7 +53,7 @@ class ProductController extends Controller
 
         $products = $products->where('is_active', true)->paginate(10);
 
-        return new ProductCollection($products);
+        return $this->paginateMapper(new ProductCollection($products));
     }
 
     public function myProducts()
@@ -69,7 +69,7 @@ class ProductController extends Controller
             ->where('products.user_id', $user_id)
             ->where('products.is_active', true)
             ->orderBy('id', 'desc')->paginate(10);
-        return new ProductCollection($products);
+        return $this->paginateMapper(new ProductCollection($products));
     }
 
     public function store(ProductRequest $request)

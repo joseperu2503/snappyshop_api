@@ -20,9 +20,13 @@ use Illuminate\Support\Str;
 
 class UserController extends Controller
 {
+    public function me()
+    {
+        return response()->json(auth()->user());
+    }
+
     public function changePasswordInternal(ChangePasswordInternalRequest $request)
     {
-
         DB::beginTransaction();
         try {
             $user_id = auth()->user()->id;

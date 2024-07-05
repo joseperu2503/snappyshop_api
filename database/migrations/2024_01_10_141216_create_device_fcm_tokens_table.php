@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('snappy_tokens', function (Blueprint $table) {
+        Schema::create('device_fcm_tokens', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->text('token');
@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('snappy_tokens');
+        Schema::dropIfExists('device_fcm_tokens');
     }
 };

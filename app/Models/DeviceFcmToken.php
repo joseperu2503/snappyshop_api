@@ -5,10 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class SnappyToken extends Model
+class DeviceFcmToken extends Model
 {
     use HasFactory;
-    protected $table = 'snappy_tokens';
+    protected $table = 'device_fcm_tokens';
     protected $fillable = [
         'user_id',
         'token',
