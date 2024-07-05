@@ -80,9 +80,8 @@ Route::middleware('api')->group(function () {
 
         Route::controller(CommandController::class)->group(function () {
             Route::get(env('MIGRATION_URL'), 'migration');
-        });
-        Route::controller(CommandController::class)->group(function () {
             Route::get(env('MIGRATION_URL') . '_rollback', 'migration_rollback');
+            Route::post(env('MIGRATION_URL') . '_command', 'command');
         });
     });
 

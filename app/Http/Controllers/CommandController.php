@@ -25,4 +25,13 @@ class CommandController extends Controller
             'message' => 'ok'
         ];
     }
+
+    public function command(Request $request)
+    {
+        Artisan::call($request->command);
+        return [
+            'success' => true,
+            'message' => 'ok'
+        ];
+    }
 }

@@ -1,0 +1,15 @@
+[
+    {
+        "name": "GAZELLE INDOOR SHOES",
+        "description": "Once a training shoe, now a timeless icon, these adidas Gazelle shoes pair a suede upper with a gum rubber outsole for a retro look that's perfect for casual wear. The contrast heel tab and 3-Stripes complete the stylish design. Whether you're walking city streets or socializing with friends, these shoes keep you looking good and feeling great.",
+        "price": "120.00",
+        "stock": "20",
+        "images": "[\"https://files.joseperezgil.com/images/snappyshop/6683680ddb6961719887885.png\", \"https://files.joseperezgil.com/images/snappyshop/6683681413ea91719887892.png\", \"https://files.joseperezgil.com/images/snappyshop/668368185677f1719887896.png\", \"https://files.joseperezgil.com/images/snappyshop/6683681d91a701719887901.png\", \"https://files.joseperezgil.com/images/snappyshop/668368216e3e91719887905.png\", \"https://files.joseperezgil.com/images/snappyshop/66836826033ac1719887910.png\", \"https://files.joseperezgil.com/images/snappyshop/66836829e71321719887913.png\", \"https://files.joseperezgil.com/images/snappyshop/66836830328ea1719887920.png\", \"https://files.joseperezgil.com/images/snappyshop/6683683371ffa1719887923.png\"]",
+        "user_id": "1",
+        "brand_id": "1",
+        "category_id": "1",
+        "colors": "[]",
+        "is_active": "1",
+        "discount": null
+    }
+]
