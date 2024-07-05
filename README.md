@@ -6,22 +6,27 @@
 Follow these steps to set up the platform after cloning it:
 
 1. Install Composer dependencies:
+
     ```bash
     composer install
     ```
 2. Copy the example environment file and rename it:
+
     ```bash
     cp .env.example .env
     ```
 3. Generate the application key:
+
     ```bash
     php artisan key:generate
     ```
 4. Generate the JWT secret:
+
     ```bash
     php artisan jwt:secret
     ```
 5. Run the migrations and seeders to populate the database:
+
     ```bash
     php artisan migrate --seed
     ```
