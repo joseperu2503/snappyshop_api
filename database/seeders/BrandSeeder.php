@@ -15,9 +15,10 @@ class BrandSeeder extends Seeder
     {
         $rows = [
             ['name' => 'Adidas'],
+            ['name' => 'Apple'],
+
             // ['name' => 'Nike'],
             // ['name' => 'Puma'],
-            // ['name' => 'Apple'],
             // ['name' => 'Samsung'],
         ];
 

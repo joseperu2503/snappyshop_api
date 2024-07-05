@@ -15,7 +15,7 @@ class CategorySeeder extends Seeder
     {
         $rows = [
             ['name' => 'Clothing and Fashion'],
-            // ['name' => 'Electronics'],
+            ['name' => 'Electronics'],
             // ['name' => 'Home and Garden'],
             // ['name' => 'Health and Beauty'],
             // ['name' => 'Toys and Entertainment'],
