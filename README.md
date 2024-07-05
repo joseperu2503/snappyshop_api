@@ -1,5 +1,6 @@
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://files.joseperezgil.com/images/snappyshop/logo.png" width="150" style="border-radius: 20px;" alt="Snappyshop Logo"></a></p>
-<p align="center" style="font-weight: bold; font-size: 32px">SnappyShop API</p>
+
+# SnappyShop API
 
 ### Initial Setup After Cloning the Platform
 
