@@ -23,11 +23,11 @@ class ProductSeeder extends Seeder
                 'description' => $product['description'],
                 'price' => $product['price'],
                 'stock' => $product['stock'],
-                'images' => $product['images'],
+                'images' => json_decode($product['images']),
                 'user_id' => $product['user_id'],
                 'brand_id' => $product['brand_id'],
                 'category_id' => $product['category_id'],
-                'colors' => $product['colors'],
+                'colors' => json_decode($product['colors']),
                 'is_active' => $product['is_active'],
                 'discount' => $product['discount'],
             ]);
