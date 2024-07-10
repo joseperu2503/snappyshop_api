@@ -16,7 +16,8 @@ class CategorySeeder extends Seeder
         $rows = [
             ['name' => 'Clothing and Fashion'],
             ['name' => 'Electronics'],
-            // ['name' => 'Home and Garden'],
+            ['name' => 'Outdoor Living'],
+            //https://www.dickssportinggoods.com/f/outdoor-living-sale
             // ['name' => 'Health and Beauty'],
             // ['name' => 'Toys and Entertainment'],
             // ['name' => 'Pets'],

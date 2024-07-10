@@ -11,6 +11,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\AddressController;
 use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\SeedController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -82,6 +83,11 @@ Route::middleware('api')->group(function () {
             Route::get(env('MIGRATION_URL'), 'migration');
             Route::get(env('MIGRATION_URL') . '_rollback', 'migration_rollback');
             Route::post(env('MIGRATION_URL') . '_command', 'command');
+        });
+
+        Route::controller(SeedController::class)->group(function () {
+            Route::get('export-data', 'exportData');
+            Route::post('import-data', 'importData');
         });
     });
 

@@ -16,19 +16,19 @@ class ProductSeeder extends Seeder
     {
         $json = File::get(database_path('data/products.json'));
 
-        $products = json_decode($json, true);
+        $products = json_decode($json, true)['products'];
         foreach ($products as $product) {
             Product::create([
                 'name' => $product['name'],
                 'description' => $product['description'],
                 'price' => $product['price'],
                 'stock' => $product['stock'],
-                'images' => json_decode($product['images']),
-                'user_id' => $product['user_id'],
+                'images' => $product['images'],
+                'user_id' => 1,
                 'brand_id' => $product['brand_id'],
                 'category_id' => $product['category_id'],
-                'colors' => json_decode($product['colors']),
-                'is_active' => $product['is_active'],
+                'colors' => $product['colors'],
+                'is_active' => true,
                 'discount' => $product['discount'],
             ]);
         }

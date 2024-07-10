@@ -26,6 +26,7 @@ class Product extends Model
 
     protected $casts = [
         'images' => 'array', // Se codifica como JSON para insertarlo en la base de datos y se decodifica al consultar la base de datos. En casos más complejos, se pueden usar mutadores y accesores.
+        'is_active' => 'bool',
     ];
 
     protected static function boot()

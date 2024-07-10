@@ -243,4 +243,63 @@ class ProductController extends Controller
             'sizes' => array_merge([['id' => null, 'name' => 'All sizes']], $sizes->toArray()),
         ];
     }
+
+    public function storeSeed(Request $request)
+    {
+        DB::beginTransaction();
+        try {
+            $brand_id = null;
+            if ($request->brand) {
+                $brand = Brand::where('name', $request->brand)->first();
+                if (!$brand) {
+                    $brand = Brand::create([
+                        'name' => $request->brand
+                    ]);
+                }
+
+                $brand_id = $brand->id;
+            }
+
+            $category_id = null;
+            if ($request->category) {
+                $category = Category::where('name', $request->category)->first();
+                if (!$category) {
+                    $category = Category::create([
+                        'name' => $request->category
+                    ]);
+                }
+
+                $category_id = $category->id;
+            }
+
+            $product = Product::create(
+                $request->all() +
+                    [
+                        'user_id' =>  1,
+                        'brand_id' =>  $brand_id,
+                        'category_id' =>  $category_id,
+                    ]
+            );
+
+            if ($request->sizes) {
+                $this->createProductSizes($product, $request->sizes);
+            }
+
+            if ($request->genders) {
+                $this->createProductGenders($product, $request->genders);
+            }
+
+            DB::commit();
+            return [
+                'success' => true,
+                'message' => 'Product registered successfully'
+            ];
+        } catch (Throwable $e) {
+            DB::rollBack();
+
+            return response()->json([
+                'message' => $e->getMessage()
+            ], 500);
+        }
+    }
 }
