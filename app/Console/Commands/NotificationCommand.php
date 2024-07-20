@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands;
 
-use App\Http\Controllers\SnappyShop\NotificationController;
+use App\Http\Controllers\NotificationController;
 use Illuminate\Console\Command;
 
 class NotificationCommand extends Command
@@ -26,7 +26,7 @@ class NotificationCommand extends Command
      */
     public function handle()
     {
-       $Rasd = app(NotificationController::class);
-       $Rasd->sendNotifications();
+        $Rasd = app(NotificationController::class);
+        $Rasd->sendNotifications();
     }
 }
