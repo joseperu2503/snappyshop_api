@@ -69,7 +69,7 @@ Route::middleware('api')->group(function () {
         Route::controller(NotificationController::class)->group(function () {
             Route::get('notification/get-firebase-token', 'getFirebaseToken');
             Route::post('notification/send-notifications', 'sendNotifications');
-            Route::post('notification/save-device-fcm-token',  'saveSnappyToken');
+            Route::post('notification/save-device-fcm-token',  'saveDeviceFcmToken');
         });
 
         Route::controller(OrderController::class)->group(function () {
