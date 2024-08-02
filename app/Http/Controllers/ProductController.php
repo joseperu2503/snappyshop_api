@@ -244,7 +244,7 @@ class ProductController extends Controller
         ];
     }
 
-    public function storeSeed(Request $request)
+    static public function storeSeed(Request $request)
     {
         DB::beginTransaction();
         try {
@@ -273,33 +273,34 @@ class ProductController extends Controller
             }
 
             $product = Product::create(
-                $request->all() +
-                    [
-                        'user_id' =>  1,
-                        'brand_id' =>  $brand_id,
-                        'category_id' =>  $category_id,
-                    ]
+                [
+                    'name' =>  $request->name,
+                    'description' =>  $request->description,
+                    'price' =>  $request->price,
+                    'stock' =>  $request->stock,
+                    'images' =>  $request->images,
+                    'colors' =>  $request->colors,
+                    'is_active' =>  $request->is_active,
+                    'discount' =>  $request->discount,
+                    'user_id' =>  1,
+                    'brand_id' =>  $brand_id,
+                    'category_id' =>  $category_id,
+                ]
             );
 
             if ($request->sizes) {
-                $this->createProductSizes($product, $request->sizes);
+                self::createProductSizes($product, $request->sizes);
             }
 
             if ($request->genders) {
-                $this->createProductGenders($product, $request->genders);
+                self::createProductGenders($product, $request->genders);
             }
 
             DB::commit();
-            return [
-                'success' => true,
-                'message' => 'Product registered successfully'
-            ];
         } catch (Throwable $e) {
             DB::rollBack();
 
-            return response()->json([
-                'message' => $e->getMessage()
-            ], 500);
+            throw $e;
         }
     }
 }

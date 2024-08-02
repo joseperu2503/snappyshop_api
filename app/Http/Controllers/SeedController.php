@@ -12,11 +12,17 @@ use Illuminate\Support\Facades\File;
 
 class SeedController extends Controller
 {
+    static public function getJsonFile()
+    {
+        $json = File::get(database_path('data/products.json'));
+        return json_decode($json, true);
+    }
+
     public function exportData()
     {
         $products = Product::all();
-        $brands = Brand::all();
-        $categories = Category::all();
+        $brands = Brand::select('name', 'image')->get();
+        $categories = Category::select('name')->get();
 
         return [
             'products' => ProductSeedResource::collection($products),
@@ -56,7 +62,7 @@ class SeedController extends Controller
         $products = $json_decode['products'];
 
         foreach ($products as $product) {
-            (new ProductController)->storeSeed(new Request(
+            ProductController::storeSeed(new Request(
                 [
                     'name' => $product['name'],
                     'description' => $product['description'],
