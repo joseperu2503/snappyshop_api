@@ -6,13 +6,13 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\ProductRequest;
 use App\Http\Resources\ProductCollection;
 use App\Http\Resources\ProductResource;
-use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Gender;
 use App\Models\Product;
 use App\Models\ProductGender;
 use App\Models\ProductSize;
 use App\Models\Size;
+use App\Models\Store;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Throwable;
@@ -44,8 +44,8 @@ class ProductController extends Controller
         if ($request->max_price) {
             $products = $products->where('price', '<=', $request->max_price);
         }
-        if ($request->brand_id) {
-            $products = $products->where('brand_id', $request->brand_id);
+        if ($request->store_id) {
+            $products = $products->where('store_id', $request->store_id);
         }
         if ($request->category_id) {
             $products = $products->where('category_id', $request->category_id);
@@ -66,7 +66,8 @@ class ProductController extends Controller
                 ->where('favorites.user_id', $user->id);
         })
             ->select('products.*', DB::raw('IF(favorites.product_id IS NOT NULL, true, false) as is_favorite'))
-            ->where('products.user_id', $user_id)
+            ->leftjoin('stores', 'stores.id', '=', 'products.store_id')
+            ->where('stores.user_id', $user_id)
             ->where('products.is_active', true)
             ->orderBy('id', 'desc')->paginate(10);
         return $this->paginateMapper(new ProductCollection($products));
@@ -76,8 +77,16 @@ class ProductController extends Controller
     {
         DB::beginTransaction();
         try {
-            $user_id = auth()->user()->id;
-            $product = Product::create($request->all() + ['user_id' => $user_id]);
+            $user = auth()->user();
+            $store = $user->store;
+            if ($store) {
+                return response()->json([
+                    'success' => false,
+                    'message' => "You don't have permission to register products"
+                ], 200);
+            }
+
+            $product = Product::create($request->all() + ['store_id' => $store->store_id]);
 
             if ($request->sizes) {
                 $this->createProductSizes($product, $request->sizes);
@@ -123,7 +132,7 @@ class ProductController extends Controller
     {
         $user_id = auth()->user()->id;
 
-        if ($product->user_id != $user_id) {
+        if ($product->store->user->user_id != $user_id) {
             return response()->json([
                 'success' => false,
                 'message' => "You don't have permission to update this product"
@@ -159,7 +168,7 @@ class ProductController extends Controller
     {
         $user_id = auth()->user()->id;
 
-        if ($product->user_id != $user_id) {
+        if ($product->store->user->user_id != $user_id) {
             return response()->json([
                 'success' => false,
                 'message' => "You don't have permission to delete this product"
@@ -217,13 +226,13 @@ class ProductController extends Controller
     public function formData()
     {
         $genders = Gender::all();
-        $brands = Brand::all();
         $categories = Category::all();
+        $stores = Store::all();
         $sizes = Size::all();
 
         return [
             'genders' => $genders,
-            'brands' => $brands,
+            'stores' => $stores,
             'categories' => $categories,
             'sizes' => $sizes,
         ];
@@ -232,13 +241,13 @@ class ProductController extends Controller
     public function filterData()
     {
         $genders = Gender::select('id', 'name')->get();
-        $brands = Brand::select('id', 'name')->get();
+        $stores = Store::select('id', 'name')->get();
         $categories = Category::select('id', 'name')->get();
         $sizes = Size::select('id', 'name')->get();
 
         return [
             'genders' => array_merge([['id' => null, 'name' => 'All genders']], $genders->toArray()),
-            'brands' => array_merge([['id' => null, 'name' => 'All brands']], $brands->toArray()),
+            'stores' => array_merge([['id' => null, 'name' => 'All stores']], $stores->toArray()),
             'categories' => array_merge([['id' => null, 'name' => 'All categories']], $categories->toArray()),
             'sizes' => array_merge([['id' => null, 'name' => 'All sizes']], $sizes->toArray()),
         ];
@@ -248,28 +257,24 @@ class ProductController extends Controller
     {
         DB::beginTransaction();
         try {
-            $brand_id = null;
-            if ($request->brand) {
-                $brand = Brand::where('name', $request->brand)->first();
-                if (!$brand) {
-                    $brand = Brand::create([
-                        'name' => $request->brand
-                    ]);
-                }
-
-                $brand_id = $brand->id;
+            if (!$request->store) {
+                return;
             }
 
-            $category_id = null;
-            if ($request->category) {
-                $category = Category::where('name', $request->category)->first();
-                if (!$category) {
-                    $category = Category::create([
-                        'name' => $request->category
-                    ]);
-                }
+            $store = Store::where('name', $request->store)->first();
+            if (!$store) {
+                return;
+            }
 
-                $category_id = $category->id;
+            if (!$request->category) {
+                return;
+            }
+
+            $category = Category::where('name', $request->category)->first();
+            if (!$category) {
+                $category = Category::create([
+                    'name' => $request->category
+                ]);
             }
 
             $product = Product::create(
@@ -282,9 +287,8 @@ class ProductController extends Controller
                     'colors' =>  $request->colors,
                     'is_active' =>  $request->is_active,
                     'discount' =>  $request->discount,
-                    'user_id' =>  1,
-                    'brand_id' =>  $brand_id,
-                    'category_id' =>  $category_id,
+                    'store_id' =>  $store->id,
+                    'category_id' =>  $category->id,
                 ]
             );
 

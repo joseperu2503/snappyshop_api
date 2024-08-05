@@ -31,7 +31,6 @@ class OrderRequest extends FormRequest
         return [
             'products.required' => 'The :attribute field is required.',
             'products.*.id.exists' => 'The :attribute field must be a valid product id.',
-            'brand_id.exists' => 'The brand_id field must be a valid address id.',
             'payment_method_id.exists' => 'The payment_method_id field must be a valid payment method id.',
         ];
     }

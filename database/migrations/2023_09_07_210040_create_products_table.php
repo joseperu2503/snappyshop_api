@@ -18,8 +18,7 @@ return new class extends Migration
             $table->float('price');
             $table->integer('stock');
             $table->json('images');
-            $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('brand_id')->nullable();
+            $table->unsignedBigInteger('store_id');
             $table->unsignedBigInteger('category_id')->nullable();
             $table->json('colors');
             $table->boolean('is_active')->default(true);
@@ -27,8 +26,7 @@ return new class extends Migration
 
             $table->timestamps();
 
-            $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('brand_id')->references('id')->on('brands');
+            $table->foreign('store_id')->references('id')->on('stores');
             $table->foreign('category_id')->references('id')->on('categories');
         });
     }

@@ -22,7 +22,7 @@ class ProductSeedResource extends JsonResource
             'price' => $this->price,
             'stock' => $this->stock,
             'images' => $this->images,
-            'brand' => $this->brand ?  $this->brand->name : null,
+            'store' => $this->store ?  $this->store->name : null,
             'category' => $this->category ? $this->category->name : null,
             'colors' => $this->colors,
             'sizes' => $this->sizes->map(function ($size) {

@@ -17,7 +17,6 @@ class ProductRequest extends FormRequest
         return [
             'name' => 'required|string',
             'description' => 'required|string',
-            'brand_id' => 'numeric|nullable|exists:brands,id',
             'category_id' => 'numeric|nullable|exists:categories,id',
             'price' => 'required|numeric',
             'stock' => 'required|numeric|integer',
@@ -36,7 +35,6 @@ class ProductRequest extends FormRequest
     public function messages()
     {
         return [
-            'brand_id.exists' => 'The brand_id field must be a valid brand id.',
             'category_id.exists' => 'The category_id field must be a valid category id.',
             'sizes.*.exists' => 'The :attribute field must be a valid size id.',
             'genders.*.exists' => 'The :attribute field must be a valid gender id.',

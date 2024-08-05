@@ -1,15 +1,400 @@
-[
-    {
-        "name": "GAZELLE INDOOR SHOES",
-        "description": "Once a training shoe, now a timeless icon, these adidas Gazelle shoes pair a suede upper with a gum rubber outsole for a retro look that's perfect for casual wear. The contrast heel tab and 3-Stripes complete the stylish design. Whether you're walking city streets or socializing with friends, these shoes keep you looking good and feeling great.",
-        "price": "120.00",
-        "stock": "20",
-        "images": "[\"https://files.joseperezgil.com/images/snappyshop/6683680ddb6961719887885.png\", \"https://files.joseperezgil.com/images/snappyshop/6683681413ea91719887892.png\", \"https://files.joseperezgil.com/images/snappyshop/668368185677f1719887896.png\", \"https://files.joseperezgil.com/images/snappyshop/6683681d91a701719887901.png\", \"https://files.joseperezgil.com/images/snappyshop/668368216e3e91719887905.png\", \"https://files.joseperezgil.com/images/snappyshop/66836826033ac1719887910.png\", \"https://files.joseperezgil.com/images/snappyshop/66836829e71321719887913.png\", \"https://files.joseperezgil.com/images/snappyshop/66836830328ea1719887920.png\", \"https://files.joseperezgil.com/images/snappyshop/6683683371ffa1719887923.png\"]",
-        "user_id": "1",
-        "brand_id": "1",
-        "category_id": "1",
-        "colors": "[]",
-        "is_active": "1",
-        "discount": null
-    }
-]
+{
+    "products": [
+        {
+            "name": "GAZELLE INDOOR SHOES",
+            "description": "Once a training shoe, now a timeless icon, these adidas Gazelle shoes pair a suede upper with a gum rubber outsole for a retro look that's perfect for casual wear. The contrast heel tab and 3-Stripes complete the stylish design. Whether you're walking city streets or socializing with friends, these shoes keep you looking good and feeling great.",
+            "price": 120,
+            "stock": 20,
+            "images": [
+                "https://files.joseperezgil.com/images/snappyshop/6683680ddb6961719887885.png",
+                "https://files.joseperezgil.com/images/snappyshop/6683681413ea91719887892.png",
+                "https://files.joseperezgil.com/images/snappyshop/668368185677f1719887896.png",
+                "https://files.joseperezgil.com/images/snappyshop/6683681d91a701719887901.png",
+                "https://files.joseperezgil.com/images/snappyshop/668368216e3e91719887905.png",
+                "https://files.joseperezgil.com/images/snappyshop/66836826033ac1719887910.png",
+                "https://files.joseperezgil.com/images/snappyshop/66836829e71321719887913.png",
+                "https://files.joseperezgil.com/images/snappyshop/66836830328ea1719887920.png",
+                "https://files.joseperezgil.com/images/snappyshop/6683683371ffa1719887923.png"
+            ],
+            "brand": "Adidas",
+            "category": "Clothing and Fashion",
+            "colors": [],
+            "sizes": [],
+            "genders": [],
+            "discount": null,
+            "is_active": true
+        },
+        {
+            "name": "iPad Air 5 - 64GB",
+            "description": ".",
+            "price": 800,
+            "stock": 15,
+            "images": [
+                "https://files.joseperezgil.com/images/snappyshop/668754f99671c1720145145.png",
+                "https://files.joseperezgil.com/images/snappyshop/668754feb02541720145150.png",
+                "https://files.joseperezgil.com/images/snappyshop/6687550312fdb1720145155.png",
+                "https://files.joseperezgil.com/images/snappyshop/668755079c3621720145159.png",
+                "https://files.joseperezgil.com/images/snappyshop/6687550d196431720145165.png"
+            ],
+            "brand": "Apple",
+            "category": "Electronics",
+            "colors": [],
+            "sizes": [],
+            "genders": [],
+            "discount": null,
+            "is_active": true
+        },
+        {
+            "name": "ADICOLOR NEUCLASSICS TEE",
+            "description": "Slip into comfort and style with this adidas t-shirt. Crafted from soft cotton jersey, its casual, loose fit moves with you for all-day ease. Subtle branding and 3-Stripes on one sleeve connect you to decades of athletic heritage. Pair with joggers or jeans for a laid-back look that celebrates sport.",
+            "price": 35,
+            "stock": 20,
+            "images": [
+                "https://files.joseperezgil.com/images/snappyshop/66836a53936bc1719888467.png",
+                "https://files.joseperezgil.com/images/snappyshop/66836a5723d541719888471.png",
+                "https://files.joseperezgil.com/images/snappyshop/66836a5a87a0b1719888474.png",
+                "https://files.joseperezgil.com/images/snappyshop/66836a5dc4e8f1719888477.png"
+            ],
+            "brand": "Adidas",
+            "category": "Clothing and Fashion",
+            "colors": ["#000000"],
+            "sizes": [],
+            "genders": [],
+            "discount": null,
+            "is_active": true
+        },
+        {
+            "name": "OWN THE RUN SHORTS",
+            "description": "Whether you're doing interval training, tempo runs or logging long miles, feel confident and supported in these adidas running shorts. AEROREADY keeps you dry mile after mile so you can push your pace. Reflective details shine in low light, and zip pockets safely stow essentials.\n\nThis product is made with at least 70% recycled materials. By reusing materials that have already been created, we help to reduce waste and our reliance on finite resources and reduce the footprint of the products we make.",
+            "price": 35,
+            "stock": 20,
+            "images": [
+                "https://files.joseperezgil.com/images/snappyshop/66836aaad3e551719888554.png",
+                "https://files.joseperezgil.com/images/snappyshop/66836aada6ab21719888557.png",
+                "https://files.joseperezgil.com/images/snappyshop/66836ab0eb6851719888560.png",
+                "https://files.joseperezgil.com/images/snappyshop/66836ab5193021719888565.png"
+            ],
+            "brand": "Adidas",
+            "category": "Clothing and Fashion",
+            "colors": [],
+            "sizes": [],
+            "genders": [],
+            "discount": null,
+            "is_active": true
+        },
+        {
+            "name": "ADICOLOR CLASSICS BECKENBAUER TRACK JACKET",
+            "description": "Sometimes history just gets it right. Taken straight from the adidas archives, this signature track jacket nails a timeless look. An embroidered Trefoil logo adds a touch of pizzazz, and the supremely soft cotton blend makes it perfect for everyday wear. With a slim fit and full zip, it gives any outfit a dash of attitude. Our favorite part: the stand-up collar for that tailored vibe. A minimum of 70% of this product is a blend of recycled and renewable materials.",
+            "price": 80,
+            "stock": 20,
+            "images": [
+                "https://files.joseperezgil.com/images/snappyshop/66836b25c98fa1719888677.png",
+                "https://files.joseperezgil.com/images/snappyshop/66836b28985871719888680.png",
+                "https://files.joseperezgil.com/images/snappyshop/66836b32aa5a51719888690.png",
+                "https://files.joseperezgil.com/images/snappyshop/66836b36308591719888694.png",
+                "https://files.joseperezgil.com/images/snappyshop/66836b3a5465c1719888698.png",
+                "https://files.joseperezgil.com/images/snappyshop/66836b3d9af591719888701.png"
+            ],
+            "brand": "Adidas",
+            "category": "Clothing and Fashion",
+            "colors": [],
+            "sizes": [],
+            "genders": [],
+            "discount": null,
+            "is_active": true
+        },
+        {
+            "name": "ESSENTIALS 3-STRIPES OPEN HEM FLEECE PANTS",
+            "description": "These adidas fleece pants slip on easily to get you out the door with time and energy to spare. Made from a cotton-blend fleece, they keep you warm whether you're racing around or moving at a more leisurely pace. 3-Stripes down the legs shout your brand pride.\n\nA minimum of 70% of this product is a blend of recycled and renewable materials. Our cotton products support more sustainable cotton farming.",
+            "price": 50,
+            "stock": 15,
+            "images": [
+                "https://files.joseperezgil.com/images/snappyshop/66836b520c6cb1719888722.png",
+                "https://files.joseperezgil.com/images/snappyshop/66836b6a38a8b1719888746.png",
+                "https://files.joseperezgil.com/images/snappyshop/66836b6e78c781719888750.png",
+                "https://files.joseperezgil.com/images/snappyshop/66836b726aa291719888754.png"
+            ],
+            "brand": "Adidas",
+            "category": "Clothing and Fashion",
+            "colors": [],
+            "sizes": [],
+            "genders": [],
+            "discount": null,
+            "is_active": true
+        },
+        {
+            "name": "MacBook Air 15 Chip M2",
+            "description": ".",
+            "price": 1200,
+            "stock": 15,
+            "images": [
+                "https://files.joseperezgil.com/images/snappyshop/6687548297b501720145026.png",
+                "https://files.joseperezgil.com/images/snappyshop/668754874638c1720145031.png",
+                "https://files.joseperezgil.com/images/snappyshop/6687548cd1cb11720145036.png"
+            ],
+            "brand": "Apple",
+            "category": "Electronics",
+            "colors": [],
+            "sizes": [],
+            "genders": [],
+            "discount": null,
+            "is_active": true
+        },
+        {
+            "name": "ADICOLOR CLASSICS 3-STRIPES CREW",
+            "description": "Ready for whatever your day brings, this adidas crew is a style mainstay. The cotton-poly fleece is soft and warm, whether you're cozying up at home or heading out in cooler weather. The embroidered Trefoil logo on the chest and 3-Stripes on both sleeves are as classic as it comes. We partner with Better Cotton to improve cotton farming globally. Better Cotton makes global cotton production better for the people who produce it, better for the environment it grows in, and better for the sector's future. Better Cotton is sourced via a chain of custody model called mass balance. This means that Better Cotton is not physically traceable to end products, however, Better Cotton Farmers benefit from the demand for Better Cotton in equivalent volumes to those we \"source.\" Find out more here: bettercotton.org/learnmore",
+            "price": 65,
+            "stock": 15,
+            "images": [
+                "https://files.joseperezgil.com/images/snappyshop/66836bab369921719888811.png",
+                "https://files.joseperezgil.com/images/snappyshop/66836bae6c87f1719888814.png",
+                "https://files.joseperezgil.com/images/snappyshop/66836bb27b2701719888818.png",
+                "https://files.joseperezgil.com/images/snappyshop/66836bc3546321719888835.png"
+            ],
+            "brand": "Adidas",
+            "category": "Clothing and Fashion",
+            "colors": [],
+            "sizes": [],
+            "genders": [],
+            "discount": null,
+            "is_active": true
+        },
+        {
+            "name": "ADIDAS X FARM RIO DENIM TRACK TOP",
+            "description": "This adidas x FARM Rio track top may just be your new favorite. Showcasing the Brazilian brand's artistic expression, it features a denim exterior in rich indigo and a satin lining that adds a silky touch of luxury. Cut loose for an easygoing vibe, this piece celebrates 10 years of creative partnership.\n\nThe cotton in this product has been sourced through Better Cotton. Better Cotton is sourced via a chain of custody model called mass balance. This means that Better Cotton is not physically traceable to end products.\n\nFind out more here: https://bettercotton.org/who-we-are/our-logo/",
+            "price": 130,
+            "stock": 26,
+            "images": [
+                "https://files.joseperezgil.com/images/snappyshop/66836c133b65d1719888915.png",
+                "https://files.joseperezgil.com/images/snappyshop/66836c169d2641719888918.png",
+                "https://files.joseperezgil.com/images/snappyshop/66836c1a1b8771719888922.png",
+                "https://files.joseperezgil.com/images/snappyshop/66836c1f2a7e11719888927.png"
+            ],
+            "brand": "Adidas",
+            "category": "Clothing and Fashion",
+            "colors": [],
+            "sizes": [],
+            "genders": [],
+            "discount": null,
+            "is_active": true
+        },
+        {
+            "name": "Apple Watch Series 9",
+            "description": ".",
+            "price": 800,
+            "stock": 52,
+            "images": [
+                "https://files.joseperezgil.com/images/snappyshop/6687555aa9f3c1720145242.png",
+                "https://files.joseperezgil.com/images/snappyshop/6687556220a331720145250.png",
+                "https://files.joseperezgil.com/images/snappyshop/66875565148661720145253.png"
+            ],
+            "brand": "Apple",
+            "category": "Electronics",
+            "colors": [],
+            "sizes": [],
+            "genders": [],
+            "discount": null,
+            "is_active": true
+        },
+        {
+            "name": "CAMPUS 00S SHOES",
+            "description": "These adidas shoes blend heritage design with modern trends for a look that transcends the decades. The suede upper shapes an iconic court-inspired silhouette updated for today's style sensibilities. Serrated 3-Stripes add subtle grunge vibes while the gum rubber outsole keeps the look authentic.",
+            "price": 110,
+            "stock": 54,
+            "images": [
+                "https://files.joseperezgil.com/images/snappyshop/66836c724a6211719889010.png",
+                "https://files.joseperezgil.com/images/snappyshop/66836c7f473de1719889023.png",
+                "https://files.joseperezgil.com/images/snappyshop/66836c830f4f11719889027.png",
+                "https://files.joseperezgil.com/images/snappyshop/66836c869db181719889030.png",
+                "https://files.joseperezgil.com/images/snappyshop/66836c896360e1719889033.png"
+            ],
+            "brand": "Adidas",
+            "category": "Clothing and Fashion",
+            "colors": [],
+            "sizes": [],
+            "genders": [],
+            "discount": null,
+            "is_active": true
+        },
+        {
+            "name": "iPhone 14 Plus",
+            "description": ".",
+            "price": 1200,
+            "stock": 56,
+            "images": [
+                "https://files.joseperezgil.com/images/snappyshop/668755acae13a1720145324.png",
+                "https://files.joseperezgil.com/images/snappyshop/668755b14404c1720145329.png",
+                "https://files.joseperezgil.com/images/snappyshop/668755b67cc6e1720145334.png",
+                "https://files.joseperezgil.com/images/snappyshop/668755bd3f4d31720145341.png"
+            ],
+            "brand": "Apple",
+            "category": "Electronics",
+            "colors": [],
+            "sizes": [],
+            "genders": [],
+            "discount": null,
+            "is_active": true
+        },
+        {
+            "name": "iPhone 15 Pro - 128GB",
+            "description": ".",
+            "price": 999,
+            "stock": 15,
+            "images": [
+                "https://files.joseperezgil.com/images/snappyshop/668754527617b1720144978.png",
+                "https://files.joseperezgil.com/images/snappyshop/66875456a0b371720144982.png",
+                "https://files.joseperezgil.com/images/snappyshop/6687545b18b511720144987.png",
+                "https://files.joseperezgil.com/images/snappyshop/6687545fce0361720144991.png",
+                "https://files.joseperezgil.com/images/snappyshop/66875464a17691720144996.png"
+            ],
+            "brand": "Apple",
+            "category": "Electronics",
+            "colors": [],
+            "sizes": [],
+            "genders": [],
+            "discount": null,
+            "is_active": true
+        },
+        {
+            "name": "Apple Watch Ultra 2 GPS",
+            "description": ".",
+            "price": 1100,
+            "stock": 12,
+            "images": [
+                "https://files.joseperezgil.com/images/snappyshop/668755287e2de1720145192.png",
+                "https://files.joseperezgil.com/images/snappyshop/6687552d7d2c31720145197.png",
+                "https://files.joseperezgil.com/images/snappyshop/66875538085b61720145208.png"
+            ],
+            "brand": "Apple",
+            "category": "Electronics",
+            "colors": [],
+            "sizes": [],
+            "genders": [],
+            "discount": null,
+            "is_active": true
+        },
+        {
+            "name": "iPhone 15 Pro Max",
+            "description": "512 GB",
+            "price": 2000,
+            "stock": 45,
+            "images": [
+                "https://files.joseperezgil.com/images/snappyshop/668755f3cd78f1720145395.png",
+                "https://files.joseperezgil.com/images/snappyshop/668755f9074961720145401.png",
+                "https://files.joseperezgil.com/images/snappyshop/668755fe2a68a1720145406.png",
+                "https://files.joseperezgil.com/images/snappyshop/66875602e6eba1720145410.png"
+            ],
+            "brand": "Apple",
+            "category": "Electronics",
+            "colors": [],
+            "sizes": [],
+            "genders": [],
+            "discount": null,
+            "is_active": true
+        },
+        {
+            "name": "P Letter Gold Necklace",
+            "description": "Our Letter necklaces are inspired by EC One's heritage and association with the Worshipful Company of Goldsmiths.The design of the letters was influenced by the certificate our founder Jos received when he completed his Goldsmiths apprenticeship back in 1992. We hope you love the design and will make these necklaces part of your story too. These lovely necklaces can be worn at either 16\" or 18\" so they great for layering.",
+            "price": 99,
+            "stock": 45,
+            "images": [
+                "https://cdn.shopify.com/s/files/1/0092/1282/1566/files/ec-one-recycled-gold-initial-necklace-P.jpg?v=1709490918&width=500",
+                "https://cdn.shopify.com/s/files/1/0092/1282/1566/files/ec-one-gold-letter-worn-1-crop_ffe3a8cd-426b-4932-8d89-397c69cbd20e.jpg?v=1709548553&width=500"
+            ],
+            "brand": "GleamGems",
+            "category": "Jewelry",
+            "colors": [],
+            "sizes": [],
+            "genders": [2],
+            "discount": 10,
+            "is_active": true
+        },
+        {
+            "name": "Letter Necklace Rope Chain",
+            "description": "Embrace the enchantment of every letter with our Letter Necklace! Create your very own alphabet necklace and personalise with our range of Charms.",
+            "price": 125,
+            "stock": 45,
+            "images": [
+                "https://cdn.shopify.com/s/files/1/1203/1874/files/A_LATTER_PETITE_GOLD_5.png?v=1708401853&format=webp&width=500",
+                "https://cdn.shopify.com/s/files/1/1203/1874/files/A_LATTER_PETITE_SILVER_5.png?v=1708401856&format=webp&width=500",
+                "https://cdn.shopify.com/s/files/1/1203/1874/files/A_LATTER_PETITE_ROSE_5.png?v=1708401859&format=webp&width=500",
+                "https://cdn.shopify.com/s/files/1/1203/1874/files/GRID_GOLD_e5fc6ac7-c81d-4e4b-ab0c-707d5561c1db.png?v=1708401868&format=webp&width=500",
+                "https://cdn.shopify.com/s/files/1/1203/1874/files/GRID_SILVER_dfcaf64f-9227-44a0-b244-d8ec9d57e3aa.png?v=1708401862&format=webp&width=500",
+                "https://cdn.shopify.com/s/files/1/1203/1874/files/GRID_ROSE_9e4ba719-5b71-4fc0-aa26-d1775bf7661f.png?v=1708401866&format=webp&width=500"
+            ],
+            "brand": "GleamGems",
+            "category": "Jewelry",
+            "colors": [],
+            "sizes": [],
+            "genders": [],
+            "discount": 5,
+            "is_active": true
+        },
+        {
+            "name": "KINGSTON BRACELET | EQUESTRIAN JEWERLY",
+            "description": "This arm candy is the new equestrian swag, handcrafted out of 2 stainless steel link chains in silver and gold, our d-bit pendant and a solid toggle for secure closure. Wear your passion :) Street to stable style.",
+            "price": 120,
+            "stock": 45,
+            "images": [
+                "https://cdn.shopify.com/s/files/1/2281/4427/products/IMG_2163.jpg?v=1678491459&width=500",
+                "https://cdn.shopify.com/s/files/1/2281/4427/products/IMG_1377.jpg?v=1678491459&width=500",
+                "https://cdn.shopify.com/s/files/1/2281/4427/products/IMG_2164.jpg?v=1678491471&width=500"
+            ],
+            "brand": "RadiantElegance",
+            "category": "Jewelry",
+            "colors": [],
+            "sizes": [],
+            "genders": [],
+            "discount": 22,
+            "is_active": true
+        },
+        {
+            "name": "Solid Gold Small Pearl Drop Hoop Earrings",
+            "description": "Our gold small pearl drop hoop earrings are a beautiful addition to any outfit. Here at Lily & Roo we love versatility so we have created earrings that are perfect for any occasion. The delicate pearl drops are removable so that the hoops can be worn on their own for an everyday look. This timeless design makes for the perfect gift and an ideal accessory for any bride or her bridesmaids.\nAvailable in solid sterling silver and solid 9ct gold and solid 9ct white gold.",
+            "price": 110,
+            "stock": 45,
+            "images": [
+                "https://cdn.shopify.com/s/files/1/0278/4857/2989/files/SolidGoldSmallPearlDropHoops.jpg?v=1720690782&width=500",
+                "https://cdn.shopify.com/s/files/1/0278/4857/2989/products/Lily_Roo_23.023517_web_4fa0099f-648d-46c2-92ba-d75e737182a3.jpg?v=1720690785&width=500",
+                "https://cdn.shopify.com/s/files/1/0278/4857/2989/products/Lily_Roo_23.023505_web_c6856280-5353-4542-997d-2c6684ef1cc4.jpg?v=1720690785&width=500",
+                "https://cdn.shopify.com/s/files/1/0278/4857/2989/products/New_packaging_with_Polishing_Cloth_281_29_c8febc58-4a01-4375-bd94-68081db9fd53.jpg?v=1720690785&width=500"
+            ],
+            "brand": "RadiantElegance",
+            "category": "Jewelry",
+            "colors": [],
+            "sizes": [],
+            "genders": [],
+            "discount": null,
+            "is_active": true
+        },
+        {
+            "name": "Gold Six Pearl Bracelet",
+            "description": "This delicate freshwater pearl bracelet is an elegant jewellery gift that will work with any outfit. Often used as wedding jewellery to compliment a brides wedding dress. Handmade with love in our London studio, this beautiful gold, solid sterling silver or rose gold pearl bracelet is ethically sourced and produced.\nAvailable in solid sterling silver and a range of filled golds and solid golds.",
+            "price": 80,
+            "stock": 45,
+            "images": [
+                "https://cdn.shopify.com/s/files/1/0278/4857/2989/products/mirror_Gold_Six_Pearl_Bracelet.jpg?v=1624454884&width=500",
+                "https://cdn.shopify.com/s/files/1/0278/4857/2989/files/6pearlbracelet.png?v=1689942366&format=webp&width=500",
+                "https://cdn.shopify.com/s/files/1/0278/4857/2989/files/7_8c6d4b39-52d4-45ec-acd2-a9170e27db1e.png?v=1689942366&format=webp&width=500",
+                "https://cdn.shopify.com/s/files/1/0278/4857/2989/products/Six_pearl_bracelet_-_Gold_model_web.jpg?v=1689942366&width=500"
+            ],
+            "brand": "RadiantElegance",
+            "category": "Jewelry",
+            "colors": [],
+            "sizes": [],
+            "genders": [2],
+            "discount": 10,
+            "is_active": true
+        }
+    ],
+    "brands": [
+        { "name": "Adidas", "image": null },
+        { "name": "Apple", "image": null },
+        { "name": "GleamGems", "image": null }
+    ],
+    "categories": [
+        { "name": "Clothing and Fashion" },
+        { "name": "Electronics" },
+        { "name": "Jewelry" }
+    ]
+}

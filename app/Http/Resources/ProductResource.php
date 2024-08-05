@@ -23,9 +23,9 @@ class ProductResource extends JsonResource
             'price' => $this->price,
             'stock' => $this->stock,
             'images' => $this->images,
-            'brand' => $this->brand ? [
-                'id' => $this->brand->id,
-                'name' => $this->brand->name,
+            'store' => $this->store ? [
+                'id' => $this->store->id,
+                'name' => $this->store->name,
             ] : null,
             'category' => $this->category ? [
                 'id' => $this->category->id,
@@ -44,10 +44,9 @@ class ProductResource extends JsonResource
                     'name' => $gender->name,
                 ];
             }),
-            'user' => [
-                'id' => $this->user->id,
-                'name' => $this->user->name,
-                'email' => $this->user->email,
+            'store' => [
+                'id' => $this->store->id,
+                'name' => $this->store->name,
             ],
             'discount' => $this->discount,
             'created_at' => $this->created_at,

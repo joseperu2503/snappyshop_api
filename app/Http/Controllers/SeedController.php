@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ProductRequest;
 use App\Http\Resources\ProductSeedResource;
-use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\Store;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 
@@ -21,12 +21,10 @@ class SeedController extends Controller
     public function exportData()
     {
         $products = Product::all();
-        $brands = Brand::select('name', 'image')->get();
         $categories = Category::select('name')->get();
 
         return [
             'products' => ProductSeedResource::collection($products),
-            'brands' => $brands,
             'categories' => $categories,
         ];
     }
@@ -42,14 +40,6 @@ class SeedController extends Controller
 
         $json = File::get($file);
         $json_decode = json_decode($json, true);
-
-        $brands = $json_decode['brands'];
-
-        foreach ($brands as $brand) {
-            Brand::firstOrCreate(
-                ['name' => $brand['name']]
-            );
-        }
 
         $categories = $json_decode['categories'];
 
@@ -69,7 +59,7 @@ class SeedController extends Controller
                     'price' => $product['price'],
                     'stock' => $product['stock'],
                     'images' => $product['images'],
-                    'brand' => $product['brand'],
+                    'store' => $product['store'],
                     'category' => $product['category'],
                     'colors' => $product['colors'],
                     'is_active' => $product['is_active'],

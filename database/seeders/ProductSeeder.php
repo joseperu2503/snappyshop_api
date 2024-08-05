@@ -27,7 +27,7 @@ class ProductSeeder extends Seeder
                     'price' => $product['price'],
                     'stock' => $product['stock'],
                     'images' => $product['images'],
-                    'brand' => $product['brand'],
+                    'store' => $product['store'],
                     'category' => $product['category'],
                     'colors' => $product['colors'],
                     'is_active' => $product['is_active'],

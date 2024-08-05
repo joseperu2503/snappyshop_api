@@ -16,8 +16,7 @@ class Product extends Model
         'price',
         'stock',
         'images',
-        'user_id',
-        'brand_id',
+        'store_id',
         'category_id',
         'colors',
         'discount',
@@ -92,19 +91,14 @@ class Product extends Model
         return $this->hasMany(ProductGender::class);
     }
 
-    public function brand()
+    public function store()
     {
-        return $this->belongsTo(Brand::class);
+        return $this->belongsTo(Store::class);
     }
 
     public function category()
     {
         return $this->belongsTo(Category::class);
-    }
-
-    public function user()
-    {
-        return $this->belongsTo(User::class);
     }
 
     public function orders()

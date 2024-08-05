@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\BrandController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CommandController;
@@ -12,6 +11,7 @@ use App\Http\Controllers\AddressController;
 use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\SeedController;
+use App\Http\Controllers\StoreController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -28,8 +28,8 @@ Route::middleware('api')->group(function () {
         Route::get('categories', 'index');
     });
 
-    Route::controller(BrandController::class)->group(function () {
-        Route::get('brands', 'index');
+    Route::controller(StoreController::class)->group(function () {
+        Route::get('stores', 'index');
     });
 
     Route::middleware('auth:api')->group(function () {
