@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\StoreCollection;
+use App\Http\Resources\StoreResource;
 use App\Models\Store;
 use Illuminate\Http\Request;
 
@@ -9,19 +11,7 @@ class StoreController extends Controller
 {
     public function index()
     {
-        $categories = Store::select(
-            'id',
-            'name',
-            'description',
-            'website',
-            'email',
-            'phone',
-            'facebook',
-            'instagram',
-            'logotype',
-            'isotype',
-            'backdrop',
-        )->get();
-        return $categories;
+        $stores = Store::where('is_active', true)->paginate(10);
+        return  $this->paginateMapper(new StoreCollection($stores));
     }
 }

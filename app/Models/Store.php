@@ -17,10 +17,12 @@ class Store extends Model
         'phone',
         'facebook',
         'instagram',
+        'youtube',
         'logotype',
         'isotype',
         'backdrop',
         'user_id',
+        'is_active'
     ];
 
     public function user()

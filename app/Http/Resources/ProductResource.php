@@ -49,7 +49,6 @@ class ProductResource extends JsonResource
                 'name' => $this->store->name,
             ],
             'discount' => $this->discount,
-            'created_at' => $this->created_at,
             'is_favorite' => boolval($this->is_favorite),
         ];
     }

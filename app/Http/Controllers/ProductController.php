@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\ProductRequest;
 use App\Http\Resources\ProductCollection;
 use App\Http\Resources\ProductResource;
+use App\Http\Resources\StoreResource;
 use App\Models\Category;
 use App\Models\Gender;
 use App\Models\Product;
@@ -125,7 +126,25 @@ class ProductController extends Controller
 
         $product = $product->first();
 
-        return new ProductResource($product);
+        $store_related_products = Product::orderBy('id', 'desc');
+        if ($user) {
+            $store_related_products = $store_related_products->leftJoin('favorites', function ($join) use ($user) {
+                $join->on('products.id', '=', 'favorites.product_id')
+                    ->where('favorites.user_id', $user->id);
+            })
+                ->select('products.*', DB::raw('IF(favorites.product_id IS NOT NULL, true, false) as is_favorite'));
+        }
+        $store_related_products = $store_related_products->orderByRaw('FIELD(category_id, ' . implode(',', [$product->category_id]) . ')')
+            ->where('products.id', '!=', $product->id)
+            ->where('store_id', $product->store_id)
+            ->where('is_active', true)
+            ->take(10)->get();
+
+        return [
+            'product' => new ProductResource($product),
+            'store_related_products' => new ProductCollection($store_related_products),
+            'store' => new StoreResource($product->store),
+        ];
     }
 
     public function update(ProductRequest $request, Product $product)

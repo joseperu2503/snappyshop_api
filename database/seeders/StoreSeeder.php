@@ -14,22 +14,24 @@ class StoreSeeder extends Seeder
      */
     public function run(): void
     {
-        $categories = SeedController::getJsonFile()['stores'];
+        $stores = SeedController::getJsonFile()['stores'];
 
-        foreach ($categories as $category) {
+        foreach ($stores as $store) {
             Store::firstOrCreate(
                 [
-                    'name' => $category['name'],
-                    'description' => $category['description'],
-                    'website' => $category['website'],
-                    'phone' => $category['phone'],
-                    'email' => $category['email'],
-                    'facebook' => $category['facebook'],
-                    'instagram' => $category['instagram'],
-                    'logotype' => $category['logotype'],
-                    'isotype' => $category['isotype'],
-                    'backdrop' => $category['backdrop'],
+                    'name' => $store['name'],
+                    'description' => $store['description'],
+                    'website' => $store['website'],
+                    'phone' => $store['phone'],
+                    'email' => $store['email'],
+                    'facebook' => $store['facebook'],
+                    'instagram' => $store['instagram'],
+                    'logotype' => $store['logotype'],
+                    'youtube' => $store['youtube'],
+                    'isotype' => $store['isotype'],
+                    'backdrop' => $store['backdrop'],
                     'user_id' => 1,
+                    'is_active' => $store['is_active'],
                 ]
             );
         }

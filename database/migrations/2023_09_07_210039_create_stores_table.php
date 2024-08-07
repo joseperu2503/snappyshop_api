@@ -14,15 +14,18 @@ return new class extends Migration
         Schema::create('stores', function (Blueprint $table) {
             $table->id();
             $table->text('name');
-            $table->text('description');
+            $table->text('description')->nullable();
             $table->text('website')->nullable();
             $table->text('email')->nullable();
             $table->text('phone')->nullable();
             $table->text('facebook')->nullable();
             $table->text('instagram')->nullable();
+            $table->text('youtube')->nullable();
             $table->text('logotype')->nullable();
             $table->text('isotype')->nullable();
             $table->text('backdrop')->nullable();
+            $table->boolean('is_active')->default(true);
+
             $table->unsignedBigInteger('user_id');
             $table->timestamps();
 
