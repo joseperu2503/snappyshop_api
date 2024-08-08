@@ -20,11 +20,27 @@ class SeedController extends Controller
 
     public function exportData()
     {
-        $products = Product::all();
+        $products = Product::inRandomOrder()->get();
+        $stores = Store::select(
+            'name',
+            'description',
+            'website',
+            'phone',
+            'email',
+            'facebook',
+            'instagram',
+            'youtube',
+            'logotype',
+            'isotype',
+            'backdrop',
+            'is_active',
+        )->get();
+
         $categories = Category::select('name')->get();
 
         return [
             'products' => ProductSeedResource::collection($products),
+            'stores' => $stores,
             'categories' => $categories,
         ];
     }
