@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\LoginGoogleRequest;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
+use App\Http\Resources\UserResource;
 use App\Models\User;
 use Google_Client;
 use Illuminate\Http\Request;
@@ -26,17 +27,8 @@ class AuthController extends Controller
         }
 
         return response()->json([
-            'success' => true,
             'access_token' => $token,
-        ]);
-    }
-
-    protected function respondWithToken($token)
-    {
-        return response()->json([
-            'access_token' => $token,
-            'token_type' => 'bearer',
-            'expires_in' => auth()->factory()->getTTL() * 60
+            'user' => new UserResource(auth()->user())
         ]);
     }
 
@@ -53,7 +45,7 @@ class AuthController extends Controller
     public function loginGoogle(LoginGoogleRequest $request)
     {
         try {
-            $client = new Google_Client(['client_id' => env('GOOGLE_CLIENT_ID_OAUTH')]);  // Specify the CLIENT_ID of the app that accesses the backend
+            $client = new Google_Client(['client_id' => env('GOOGLE_CLIENT_ID_OAUTH')]);
             $payload = $client->verifyIdToken($request->id_token);
             if ($payload) {
                 $email = $payload['email'];
@@ -69,8 +61,8 @@ class AuthController extends Controller
                 $token = JWTAuth::fromUser($user);
 
                 return response()->json([
-                    'success' => true,
                     'access_token' => $token,
+                    'user' => new UserResource($user)
                 ]);
             } else {
                 // Invalid ID token

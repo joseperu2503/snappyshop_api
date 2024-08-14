@@ -8,6 +8,7 @@ use App\Http\Requests\ChangePasswordInternalRequest;
 use App\Http\Requests\ChangePersonalDataRequest;
 use App\Http\Requests\SendVerifyCodeRequest;
 use App\Http\Requests\ValidateVerifyCodeRequest;
+use App\Http\Resources\UserResource;
 use App\Mail\VerifyCodeMail;
 use App\Models\User;
 use App\Models\VerifyCode;
@@ -22,7 +23,7 @@ class UserController extends Controller
 {
     public function me()
     {
-        return response()->json(auth()->user());
+        return new UserResource(auth()->user());
     }
 
     public function changePasswordInternal(ChangePasswordInternalRequest $request)
