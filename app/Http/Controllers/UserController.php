@@ -4,16 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ChangePasswordExternalRequest;
-use App\Http\Requests\ChangePasswordInternalRequest;
-use App\Http\Requests\ChangePersonalDataRequest;
 use App\Http\Requests\SendVerifyCodeRequest;
 use App\Http\Requests\ValidateVerifyCodeRequest;
-use App\Http\Resources\UserResource;
 use App\Mail\VerifyCodeMail;
 use App\Models\User;
 use App\Models\VerifyCode;
 use Carbon\Carbon;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Throwable;
@@ -21,39 +17,8 @@ use Illuminate\Support\Str;
 
 class UserController extends Controller
 {
-    public function me()
-    {
-        return new UserResource(auth()->user());
-    }
-
-    public function changePasswordInternal(ChangePasswordInternalRequest $request)
-    {
-        DB::beginTransaction();
-        try {
-            $user_id = auth()->user()->id;
-            $user = User::find($user_id);
-
-            $user->update([
-                'password' => $request->password
-            ]);
-            DB::commit();
-
-            return [
-                'success' => true,
-                'message' => 'Password changed successfully.'
-            ];
-        } catch (Throwable $e) {
-            DB::rollBack();
-
-            return response()->json([
-                'message' => $e->getMessage()
-            ], 500);
-        }
-    }
-
     public function changePasswordExternal(ChangePasswordExternalRequest $request)
     {
-
         DB::beginTransaction();
         try {
 
@@ -79,34 +44,6 @@ class UserController extends Controller
             return [
                 'success' => true,
                 'message' => 'Password changed successfully.'
-            ];
-        } catch (Throwable $e) {
-            DB::rollBack();
-
-            return response()->json([
-                'message' => $e->getMessage()
-            ], 500);
-        }
-    }
-
-    public function changePersonalData(ChangePersonalDataRequest $request)
-    {
-        DB::beginTransaction();
-        try {
-            $user_id = auth()->user()->id;
-            $user = User::find($user_id);
-            $user->update([
-                'name' => $request->name,
-                'email' => $request->email,
-                'profile_photo' => $request->profile_photo,
-            ]);
-
-            DB::commit();
-
-            return [
-                'success' => true,
-                'message' => 'Personal data changed successfully.',
-                'data' => $user,
             ];
         } catch (Throwable $e) {
             DB::rollBack();

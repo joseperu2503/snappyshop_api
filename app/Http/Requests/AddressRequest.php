@@ -14,6 +14,10 @@ class AddressRequest extends FormRequest
             'recipient_name' => 'required|string',
             'phone' => 'required|numeric',
             'references' => 'present',
+            'country' => 'required|string',
+            'locality' => 'required|string',
+            'plus_code' => 'required|string',
+            'postal_code' => 'required|string',
             'latitude' => 'numeric',
             'longitude' => 'numeric',
         ];

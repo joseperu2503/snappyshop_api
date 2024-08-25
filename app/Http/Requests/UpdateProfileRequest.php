@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ChangePersonalDataRequest extends FormRequest
+class UpdateProfileRequest extends FormRequest
 {
     public function authorize()
     {
@@ -14,8 +14,7 @@ class ChangePersonalDataRequest extends FormRequest
     public function rules()
     {
         return [
-            'id' => 'required|exists:users,id',
-            'email' => 'required|email|unique:users,email,' . $this->id,
+            'email' => 'required|email',
             'name' => 'required|string',
             'profile_photo' => 'present|url|nullable',
         ];

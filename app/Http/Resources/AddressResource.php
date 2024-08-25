@@ -7,6 +7,8 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 class AddressResource extends JsonResource
 {
+    public static $wrap = null;
+
     /**
      * Transform the resource into an array.
      *
@@ -16,10 +18,6 @@ class AddressResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'user' => [
-                'id' => $this->user->id,
-                'name' => $this->user->name,
-            ],
             'address' => $this->address,
             'detail' => $this->detail,
             'phone' => $this->phone,
@@ -27,8 +25,11 @@ class AddressResource extends JsonResource
             'references' => $this->references,
             'latitude' => $this->latitude,
             'longitude' => $this->longitude,
-            'primary' => $this->primary,
-            'created_at' => $this->created_at,
+            'default' => $this->default,
+            'country' => $this->country,
+            'locality' => $this->locality,
+            'plus_code' => $this->plus_code,
+            'postal_code' => $this->postal_code,
         ];
     }
 }

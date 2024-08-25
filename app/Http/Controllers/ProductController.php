@@ -84,7 +84,7 @@ class ProductController extends Controller
                 return response()->json([
                     'success' => false,
                     'message' => "You don't have permission to register products"
-                ], 200);
+                ], 401);
             }
 
             $product = Product::create($request->all() + ['store_id' => $store->store_id]);
@@ -155,7 +155,7 @@ class ProductController extends Controller
             return response()->json([
                 'success' => false,
                 'message' => "You don't have permission to update this product"
-            ], 200);
+            ], 401);
         }
         DB::beginTransaction();
         try {

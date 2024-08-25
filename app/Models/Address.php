@@ -19,11 +19,15 @@ class Address extends Model
         'user_id',
         'latitude',
         'longitude',
-        'primary',
+        'default',
+        'country',
+        'locality',
+        'postal_code',
+        'plus_code'
     ];
 
     protected $casts = [
-        'primary' => 'boolean', // Se convierte en un tipo 'tinyint(1)' en la base de datos para insertarlo y se recupera como booleano en consultas (MySQL).
+        'default' => 'boolean', // Se convierte en un tipo 'tinyint(1)' en la base de datos para insertarlo y se recupera como booleano en consultas (MySQL).
     ];
 
     public function user()

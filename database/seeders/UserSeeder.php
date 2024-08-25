@@ -17,25 +17,31 @@ class UserSeeder extends Seeder
             'id' => 1,
             'name' => 'Test1',
             'email' => 'test1@gmail.com',
-            'password' => '12345678',
+            'password' => 'Abc123',
         ]);
         User::create([
             'id' => 2,
             'name' => 'Test2',
             'email' => 'test2@gmail.com',
-            'password' => '12345678',
+            'password' => 'Abc123',
         ]);
         User::create([
             'id' => 3,
             'name' => 'Test3',
             'email' => 'test3@gmail.com',
-            'password' => '12345678',
+            'password' => 'Abc123',
         ]);
         User::create([
             'id' => 4,
             'name' => 'Test4',
             'email' => 'test4@gmail.com',
-            'password' => '12345678',
+            'password' => 'Abc123',
+        ]);
+        User::create([
+            'id' => 5,
+            'name' => 'Jose Perez',
+            'email' => 'joseperu2503@gmail.com',
+            'password' => 'Abc123',
         ]);
     }
 }

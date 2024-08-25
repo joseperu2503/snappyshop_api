@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AccountController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
@@ -35,9 +36,14 @@ Route::middleware('api')->group(function () {
     Route::middleware('auth:api')->group(function () {
 
         Route::controller(AddressController::class)->group(function () {
-            Route::get('addresses/my-addresses', 'myAddresses');
+            Route::get('addresses/autocomplete', 'autocomplete');
+            Route::get('addresses/place-details', 'placeDetails');
+            Route::get('addresses/geocode-full', 'geocodeFull');
+            Route::get('addresses/geocode', 'geocode');
+
+            Route::get('addresses', 'addresses');
             Route::post('addresses', 'store');
-            Route::put('addresses/mark-as-primary/{address}', 'markAsPrimary');
+            Route::put('addresses/{address}', 'update');
             Route::delete('addresses/{address}', 'destroy');
             Route::get('addresses/{address}', 'show');
         });
@@ -60,10 +66,10 @@ Route::middleware('api')->group(function () {
             Route::delete('products/{product}', 'destroy');
         });
 
-        Route::controller(UserController::class)->group(function () {
-            Route::post('user/change-password-internal', 'changePasswordInternal');
-            Route::post('user/change-personal-data', 'changePersonalData');
-            Route::get('user/me', 'me');
+        Route::controller(AccountController::class)->group(function () {
+            Route::put('account/password', 'updatePassword');
+            Route::put('account/profile', 'updateProfile');
+            Route::get('account/profile', 'profile');
         });
 
         Route::controller(NotificationController::class)->group(function () {
@@ -98,8 +104,8 @@ Route::middleware('api')->group(function () {
     });
 
     Route::controller(UserController::class)->group(function () {
-        Route::post('user/change-password-external', 'changePasswordExternal');
-        Route::post('user/send-verify-code', 'sendVerifyCode');
-        Route::post('user/validate-verify-code', 'validateVerifyCode');
+        Route::post('change-password', 'changePasswordExternal');
+        Route::post('send-verify-code', 'sendVerifyCode');
+        Route::post('validate-verify-code', 'validateVerifyCode');
     });
 });

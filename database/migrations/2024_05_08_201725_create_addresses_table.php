@@ -18,11 +18,15 @@ return new class extends Migration
             $table->string('detail')->nullable();
             $table->string('recipient_name');
             $table->string('phone');
+            $table->string('country');
+            $table->string('locality');
+            $table->string('postal_code');
+            $table->string('plus_code');
             $table->string('references')->nullable();
             $table->boolean('is_active')->default(true);
             $table->double('latitude', 22, 18);
             $table->double('longitude', 22, 18);
-            $table->boolean('primary')->default(false);
+            $table->boolean('default')->default(false);
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users');
