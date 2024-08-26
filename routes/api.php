@@ -7,10 +7,10 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CommandController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\NotificationController;
-use App\Http\Controllers\UserController;
 use App\Http\Controllers\AddressController;
 use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\PasswordController;
 use App\Http\Controllers\SeedController;
 use App\Http\Controllers\StoreController;
 use Illuminate\Http\Request;
@@ -67,7 +67,6 @@ Route::middleware('api')->group(function () {
         });
 
         Route::controller(AccountController::class)->group(function () {
-            Route::put('account/password', 'updatePassword');
             Route::put('account/profile', 'updateProfile');
             Route::get('account/profile', 'profile');
         });
@@ -103,9 +102,10 @@ Route::middleware('api')->group(function () {
         Route::get('products/{product}', 'show');
     });
 
-    Route::controller(UserController::class)->group(function () {
-        Route::post('change-password', 'changePasswordExternal');
-        Route::post('send-verify-code', 'sendVerifyCode');
-        Route::post('validate-verify-code', 'validateVerifyCode');
+    Route::controller(PasswordController::class)->group(function () {
+        Route::put('password', 'updatePassword');
+        Route::post('password/reset', 'resetPassword');
+        Route::post('password/reset/send-code', 'sendVerifyCode');
+        Route::post('password/reset/validate-code', 'validateVerifyCode');
     });
 });

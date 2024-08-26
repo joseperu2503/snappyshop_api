@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ChangePasswordInternalRequest;
 use App\Http\Requests\UpdateProfileRequest;
 use App\Http\Resources\UserResource;
 use App\Models\User;
@@ -15,31 +14,6 @@ class AccountController extends Controller
     public function profile()
     {
         return new UserResource(auth()->user());
-    }
-
-    public function updatePassword(ChangePasswordInternalRequest $request)
-    {
-        DB::beginTransaction();
-        try {
-            $user_id = auth()->user()->id;
-            $user = User::find($user_id);
-
-            $user->update([
-                'password' => $request->password
-            ]);
-            DB::commit();
-
-            return [
-                'success' => true,
-                'message' => 'Password changed successfully.'
-            ];
-        } catch (Throwable $e) {
-            DB::rollBack();
-
-            return response()->json([
-                'message' => $e->getMessage()
-            ], 500);
-        }
     }
 
     public function updateProfile(UpdateProfileRequest $request)

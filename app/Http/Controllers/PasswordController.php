@@ -2,22 +2,48 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\ChangePasswordExternalRequest;
+use App\Http\Requests\ResetPasswordRequest;
 use App\Http\Requests\SendVerifyCodeRequest;
+use App\Http\Requests\UpdatePasswordRequest;
 use App\Http\Requests\ValidateVerifyCodeRequest;
 use App\Mail\VerifyCodeMail;
 use App\Models\User;
 use App\Models\VerifyCode;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
-use Throwable;
 use Illuminate\Support\Str;
+use Throwable;
 
-class UserController extends Controller
+class PasswordController extends Controller
 {
-    public function changePasswordExternal(ChangePasswordExternalRequest $request)
+    public function updatePassword(UpdatePasswordRequest $request)
+    {
+        DB::beginTransaction();
+        try {
+            $user_id = auth()->user()->id;
+            $user = User::find($user_id);
+
+            $user->update([
+                'password' => $request->password
+            ]);
+            DB::commit();
+
+            return [
+                'success' => true,
+                'message' => 'Password changed successfully.'
+            ];
+        } catch (Throwable $e) {
+            DB::rollBack();
+
+            return response()->json([
+                'message' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+    public function resetPassword(ResetPasswordRequest $request)
     {
         DB::beginTransaction();
         try {
@@ -29,6 +55,7 @@ class UserController extends Controller
                 ->where('code', $request->code)
                 ->where('is_verified', true)
                 ->first();
+
             if (!$verify_code) {
                 return response()->json([
                     'success' => false,

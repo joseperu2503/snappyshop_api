@@ -244,7 +244,7 @@ class AddressController extends Controller
             $data = $response->json();
 
             // Verificar si existe plus_code
-            $globalCode = isset($data['plus_code']['global_code']) ? $data['plus_code']['global_code'] : '';
+            $plus_code = isset($data['plus_code']['global_code']) ? $data['plus_code']['global_code'] : '';
 
 
             $results = $data['results'];
@@ -274,7 +274,7 @@ class AddressController extends Controller
                         'country' => $countryComponent ? $countryComponent['long_name'] : '',
                         'locality' => $localityComponent ? $localityComponent['long_name'] : '',
                         'postal_code' => $postalCodeComponent ? $postalCodeComponent['long_name'] : '',
-                        'global_code' => $globalCode,
+                        'plus_code' => $plus_code,
                     ]);
                 }
             }
