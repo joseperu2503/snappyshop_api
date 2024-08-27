@@ -67,7 +67,7 @@ class CartController extends Controller
         return [
             'subtotal' => $subtotal,
             'shipping_fee' => $shipping_fee,
-            'total_amount' => $total,
+            'total' => $total,
             'products' => new CartCollection($product_carts),
         ];
     }
