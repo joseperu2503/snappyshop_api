@@ -48,6 +48,8 @@ class ProductResource extends JsonResource
                 'id' => $this->store->id,
                 'name' => $this->store->name,
             ],
+            'sale_price' => $this->sale_price,
+            'base_price' => $this->base_price,
             'discount' => $this->discount,
             'is_favorite' => boolval($this->is_favorite),
         ];

@@ -71,6 +71,33 @@ class Product extends Model
         return json_decode($value, true);
     }
 
+    /**
+     * Obtener el precio de venta con descuento.
+     *
+     * @return float
+     */
+    public function getSalePriceAttribute()
+    {
+        $sale_price = $this->price;
+        if ($this->discount) {
+            $sale_price = round($this->price * (1 - $this->discount / 100), 2);
+        }
+        return $sale_price;
+    }
+
+    /**
+     * Obtener el precio base si existe un descuento.
+     *
+     * @return float|null
+     */
+    public function getBasePriceAttribute()
+    {
+        if ($this->discount) {
+            return $this->price;
+        }
+        return null;
+    }
+
     public function sizes()
     {
         return $this->belongsToMany(Size::class, 'product_size', 'product_id', 'size_id');

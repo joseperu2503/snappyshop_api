@@ -56,18 +56,18 @@ class CartController extends Controller
         $user_id = auth()->user()->id;
         $product_carts = ProductCart::where('user_id', $user_id)->orderBy('id', 'desc')->get();
 
-        $totalAmount = 0;
+        $subtotal = 0;
         foreach ($product_carts as $productCart) {
-            $price = $productCart->product->price;
-            if ($productCart->product->discount) {
-                $price = $price * (1 - $productCart->product->discount / 100);
-            }
-
-            $totalAmount += $price * $productCart->quantity;
+            $subtotal += $productCart->product->sale_price * $productCart->quantity;
         }
 
+        $shipping_fee = $subtotal == 0 ? 0 : 10;
+        $total = $subtotal + $shipping_fee;
+
         return [
-            'total_amount' => $totalAmount,
+            'subtotal' => $subtotal,
+            'shipping_fee' => $shipping_fee,
+            'total_amount' => $total,
             'products' => new CartCollection($product_carts),
         ];
     }
