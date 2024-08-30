@@ -57,6 +57,7 @@ class AddressController extends Controller
             return [
                 'success' => true,
                 'message' => 'Address registered successfully',
+                'data' => new AddressResource($address),
             ];
         } catch (Throwable $e) {
             DB::rollBack();

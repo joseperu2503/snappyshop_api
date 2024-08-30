@@ -85,19 +85,6 @@ class Product extends Model
         return $sale_price;
     }
 
-    /**
-     * Obtener el precio base si existe un descuento.
-     *
-     * @return float|null
-     */
-    public function getBasePriceAttribute()
-    {
-        if ($this->discount) {
-            return $this->price;
-        }
-        return null;
-    }
-
     public function sizes()
     {
         return $this->belongsToMany(Size::class, 'product_size', 'product_id', 'size_id');
