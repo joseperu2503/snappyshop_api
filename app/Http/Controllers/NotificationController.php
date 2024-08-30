@@ -62,6 +62,18 @@ class NotificationController extends Controller
                     "notification" => [
                         "image" => !empty($product->images) ? $product->images[0] : null
                     ]
+                ],
+                "webpush" => [
+                    "headers" => [
+                        "image" => !empty($product->images) ? $product->images[0] : null,
+                    ],
+                    "notification" => [
+                        "title" => $product->name,
+                        "body" => '$' . number_format($product->price, 2),
+                        "icon" => !empty($product->images) ? $product->images[0] : null,
+                        "image" => !empty($product->images) ? $product->images[0] : null,
+                        "click_action" => "https://yourwebsite.com/product/" . $product->id // Acción al hacer clic en la notificación
+                    ]
                 ]
             ]
         ];
