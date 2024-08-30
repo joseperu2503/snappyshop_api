@@ -56,7 +56,7 @@ class NotificationController extends Controller
                 ],
                 "notification" => [
                     "title" => $product->name,
-                    "body" => '$' . $product->price,
+                    "body" => '$' . number_format($product->price, 2),
                 ],
                 "android" => [
                     "notification" => [
