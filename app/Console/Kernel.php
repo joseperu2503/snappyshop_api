@@ -13,6 +13,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule): void
     {
         $schedule->command('send:notifications')->everyMinute();
+        $schedule->command('send:notifications')->cron('0 8,12,16,18,20,22 * * *');
     }
 
     /**

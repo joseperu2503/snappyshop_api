@@ -33,6 +33,10 @@ Route::middleware('api')->group(function () {
         Route::get('stores', 'index');
     });
 
+    Route::controller(NotificationController::class)->group(function () {
+        Route::post('notification/save-device-fcm-token',  'saveDeviceFcmToken');
+    });
+
     Route::middleware('auth:api')->group(function () {
 
         Route::controller(AddressController::class)->group(function () {
@@ -74,7 +78,6 @@ Route::middleware('api')->group(function () {
         Route::controller(NotificationController::class)->group(function () {
             Route::get('notification/get-firebase-token', 'getFirebaseToken');
             Route::post('notification/send-notifications', 'sendNotifications');
-            Route::post('notification/save-device-fcm-token',  'saveDeviceFcmToken');
         });
 
         Route::controller(OrderController::class)->group(function () {

@@ -94,12 +94,14 @@ class NotificationController extends Controller
     {
         DB::beginTransaction();
         try {
-            $user_id = auth()->user()->id;
+
+            $user = auth()->user();
+
             DeviceFcmToken::updateOrCreate(
                 [
                     'token' => $request->token
                 ],
-                ['user_id' => $user_id,]
+                ['user_id' => $user ? $user->user_id : null,]
             );
 
             DB::commit();

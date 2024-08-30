@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('device_fcm_tokens', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('user_id')->nullable();
             $table->text('token');
             $table->timestamps();
 
