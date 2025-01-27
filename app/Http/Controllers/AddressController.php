@@ -8,6 +8,7 @@ use App\Http\Resources\AddressCollection;
 use App\Http\Resources\AddressResource;
 use App\Models\Address;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 use Throwable;
@@ -185,14 +186,15 @@ class AddressController extends Controller
                 'key' => $apiKey,
             ]);
 
+
             $data = $response->json();
 
             $predictions = collect($data['predictions'])->map(function ($prediction) {
                 return [
                     'place_id' => $prediction['place_id'],
                     'structured_formatting' => [
-                        'main_text' => $prediction['structured_formatting']['main_text'],
-                        'secondary_text' => $prediction['structured_formatting']['secondary_text'],
+                        'main_text' => Arr::get($prediction, 'structured_formatting.main_text', ''),
+                        'secondary_text' => Arr::get($prediction, 'structured_formatting.secondary_text', ''),
                     ],
                 ];
             });
