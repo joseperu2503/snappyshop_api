@@ -31,3 +31,8 @@ php artisan jwt:secret
 ```bash
 php artisan migrate --seed
 ```
+
+## Algolia
+```bash
+php artisan scout:import "App\Models\Product"
+```
